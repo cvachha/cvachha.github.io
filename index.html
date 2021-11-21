@@ -10,10 +10,10 @@
     <a-scene background="color: #FAFAFA" renderer="precision: mediump">
       <a-assets>
         <a-asset-item id="room" src="theroomv1.gltf"></a-asset-item>
-        <a-asset-item id="panoPatio" src="panoPatio.jpg"></a-asset-item>
+        <img id="panoPatio" src="panoPatio.jpg"></a-asset-item>
       </a-assets>
 
-      <a-sky id="image-360" radius="10" src="#panoPatio"></a-sky>
+      <a-sky id="image-360" radius="100" src="#panoPatio"></a-sky>
 
       <a-plane position="0 0 -1.474" rotation="-90 0 0" width="4" height="4" color="#999999" shadow></a-plane>
       <a-entity generic-tracked-controller-controls=""></a-entity>
