@@ -2,15 +2,19 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Hello, WebVR! • A-Frame</title>
-    <meta name="description" content="Hello, world WebVR! • A-Frame">
+    <title>Cyrus Vachha</title>
+    <meta name="description" content="Cyrus Vachha">
     <script src="https://aframe.io/releases/1.1.0/aframe.min.js"></script>
   </head>
   <body>
     <a-scene background="color: #FAFAFA" renderer="precision: mediump">
       <a-assets>
-        <a-asset-item id="room" src="theroomv1.gltf"></a-asset-item>
-        <img id="panoPatio" src="panoPatio.jpg"></a-asset-item>
+        <a-asset-item id="room" src="theroomv2_export_test1.gltf"></a-asset-item>
+        <a-asset-item id="leftShow" src="theroomv1.gltf"></a-asset-item>
+        <a-asset-item id="roomTest" src="theroomv1_1.gltf"></a-asset-item>
+        <a-asset-item id="watch" src="watch_v1.gltf"></a-asset-item>
+        <img id="panoPatio" src="city_night_pano.jpg"></a-asset-item>
+        <audio id="ambientSound" src="ambient_connect.mp3"></audio>
       </a-assets>
 
       <a-sky id="image-360" radius="100" src="#panoPatio"></a-sky>
@@ -20,8 +24,12 @@
       <a-entity oculus-touch-controls="hand: left"></a-entity>
       <a-entity oculus-touch-controls="hand: right"></a-entity>
       <a-entity position="0.261 0.849 -1.282" scale="0.048 0.048 0.048" rotation="0 -90 0" obj-model="mtl: desk_only.mtl; obj: desk_only.obj" rotation="0 -90 0" src="https://i.imgur.com/j7zmzsM.jpeg" id="desk"></a-entity>
+      <!--<a-entity sound="src: #ambientSound; autoplay: true;loop: true"></a-entity>
+      <a-entity gltf-model="#roomTest" scale="0.19 0.19 0.19"></a-entity>
+      -->
+      <a-entity gltf-model="#room" scale="0.175 0.175 0.175" sound="src: #ambientSound; loop: true; on: click"></a-entity>
       
-      <a-entity gltf-model="#room" scale="0.175 0.175 0.175"></a-entity>
+      <a-entity gltf-model="#watch" scale="10 10 10" sound="src: ambient_connect.mp3; autoplay: true;on: click"></a-entity>
       <a-plane position="0.347 0.924 -1.255" scale="0.083 0.108 0.062" rotation="-90 0 0" width="4" height="4" src="resumesp21_cyrus_optimized.jpg" shadow></a-plane>
 
     </a-scene>
