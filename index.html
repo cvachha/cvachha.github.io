@@ -12,6 +12,10 @@
     <a-scene background="color: #FAFAFA" renderer="precision: mediump">
       <a-assets timeout="10000">
         <a-asset-item id="room" src="theroomv2_test7.gltf"></a-asset-item>
+        <a-asset-item id="vrHeadsets1" src="theroomv2_test7_vrheadsets_cardboard_gearvr.gltf"></a-asset-item>
+        <a-asset-item id="vrHeadsets2" src="theroomv2_test7_vrheadsets_wmrs.gltf"></a-asset-item>
+        <a-asset-item id="vrHeadsets3" src="theroomv2_test7_vrheadsets_quest.gltf"></a-asset-item>
+
         <a-asset-item id="glassTest" src="glass_theroomv2_test4.obj"></a-asset-item>
         <a-asset-item id="glassTest-mtl" src="glass_theroomv2_test4.mtl"></a-asset-item>
 
@@ -48,14 +52,23 @@
 
 <!--
         <a-entity gltf-model="#room" position="-4 0 0" scale="0.175 0.175 0.175" sound="src: #ambientSound; loop: true; on: click"></a-entity>
+better light: light="intensity:  0.6;  castShadow:  true"
+<a-entity light="intensity: 0.6; castShadow: true" position="1.01222 1 0.44952" data-aframe-default-light="" aframe-injected=""></a-entity>
+
+pointlight
+<a-entity light="intensity: 0.49; castShadow: true; type: point" position="6.55764 2.86747 0.56905" data-aframe-default-light="" aframe-injected=""></a-entity>
 
 -->
 
 
 
 
-      <a-entity obj-model="obj: #glassTest; mtl: #glassTest-mtl" position="-4 0 0" scale="0.175 0.175 0.175"></a-entity>
-      <a-entity gltf-model="#room" position="-4 0 0" scale="0.175 0.175 0.175" sound="src: #ambientSound; loop: true; on: click"></a-entity>
+      <a-entity obj-model="obj: #glassTest; mtl: #glassTest-mtl" position="-4 -0.4 0" scale="0.175 0.175 0.175"></a-entity>
+      <a-entity gltf-model="#room" position="-4 -0.4 0" scale="0.175 0.175 0.175" sound="src: #ambientSound; loop: true; on: click"></a-entity>
+     
+      <a-entity gltf-model="#vrHeadsets1" position="-4 -0.4 0" scale="0.175 0.175 0.175"></a-entity>
+      <a-entity gltf-model="#vrHeadsets2" position="-4 -0.4 0" scale="0.175 0.175 0.175"></a-entity>
+      <a-entity gltf-model="#vrHeadsets3" position="-4 -0.4 0" scale="0.175 0.175 0.175"></a-entity>
 
       <a-entity gltf-model="#watch" scale="10 10 10"></a-entity>
       <a-plane position="0.347 0.924 -1.255" scale="0.083 0.108 0.062" rotation="-90 0 0" width="4" height="4" src="resumesp21_cyrus_optimized.jpg" shadow></a-plane>
