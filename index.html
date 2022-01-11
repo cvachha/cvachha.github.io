@@ -10,23 +10,22 @@
   </head>
   <body>
     <a-scene background="color: #FAFAFA" renderer="precision: mediump">
-      <a-assets timeout="10000">
-        <a-asset-item id="room" src="theroomv2_test8_1.gltf"></a-asset-item>
-        <a-asset-item id="vrHeadsets1" src="theroomv2_test8_vrheadsets1.gltf"></a-asset-item>
-        <a-asset-item id="vrHeadsets2" src="theroomv2_test8_vrheadsets2.gltf"></a-asset-item>
-        <a-asset-item id="showcase" src="theroomv2_test8_showcase.gltf"></a-asset-item>
-        <a-asset-item id="gallery" src="theroomv2_test8_gallery.gltf"></a-asset-item>
+      <a-assets timeout="2000">
+        <a-asset-item id="room" src="theroomv2_test9.gltf"></a-asset-item>
+        <a-asset-item id="vrHeadsets1" src="theroomv2_test9_vrheadsets1.gltf"></a-asset-item>
+        <a-asset-item id="vrHeadsets2" src="theroomv2_test9_vrheadsets2_edited.gltf"></a-asset-item>
+        <a-asset-item id="showcase" src="theroomv2_test9_showcase.gltf"></a-asset-item>
+        <a-asset-item id="gallery" src="theroomv2_test9_gallery.gltf"></a-asset-item>
         <a-asset-item id="deskItems" src="theroomv2_test8_deskItems.gltf"></a-asset-item>
-        <a-asset-item id="realSenseBooth" src="theroomv2_test8_rsBooth.gltf"></a-asset-item>
-        <a-asset-item id="domes" src="theroomv2_test8_domes.gltf"></a-asset-item>
+        <a-asset-item id="realSenseBooth" src="theroomv2_test9_rsBooth.gltf"></a-asset-item>
+        <a-asset-item id="domes" src="theroomv2_test9_domes.gltf"></a-asset-item>
+        <a-asset-item id="roof" src="theroomv2_test9_roof.gltf"></a-asset-item>
 
-        <a-asset-item id="glassTest" src="glass_theroomv2_test4.obj"></a-asset-item>
-        <a-asset-item id="glassTest-mtl" src="glass_theroomv2_test4.mtl"></a-asset-item>
+        <a-asset-item id="glassTest" src="theroomv2_test9_glass.obj"></a-asset-item>
+        <a-asset-item id="glassTest-mtl" src="theroomv2_test9_glass.mtl"></a-asset-item>
 
-        <a-asset-item id="leftShow" src="theroomv1.gltf"></a-asset-item>
-        <a-asset-item id="roomTest" src="theroomv1_1.gltf"></a-asset-item>
-        <a-asset-item id="watch" src="watch_v1.gltf"></a-asset-item>
-        <img id="panoPatio" src="city_pano.jpg"></a-asset-item>
+      
+        <img id="panoPatio" src="city_night_pano.jpg"></a-asset-item>
         <audio id="ambientSound" src="ambient_connect.mp3"></audio>
       </a-assets>
 
@@ -34,15 +33,18 @@
 
       
       <!--
+          <a-asset-item id="leftShow" src="theroomv1.gltf"></a-asset-item>
+        <a-asset-item id="roomTest" src="theroomv1_1.gltf"></a-asset-item>
             <a-plane position="0 0 -1.474" rotation="-90 0 0" width="4" height="4" color="#999999" shadow></a-plane>
+        <a-asset-item id="watch" src="watch_v1.gltf"></a-asset-item>
 
       <a-entity generic-tracked-controller-controls=""></a-entity>
       <a-entity oculus-touch-controls="hand: left"></a-entity>
       <a-entity oculus-touch-controls="hand: right"></a-entity>
-
+      <a-entity position="0.261 0.849 -1.282" scale="0.048 0.048 0.048" rotation="0 -90 0" obj-model="mtl: desk_only.mtl; obj: desk_only.obj" rotation="0 -90 0" src="https://i.imgur.com/j7zmzsM.jpeg" id="desk"></a-entity>
+      <a-entity gltf-model="#watch" scale="10 10 10"></a-entity>
       -->
       
-      <a-entity position="0.261 0.849 -1.282" scale="0.048 0.048 0.048" rotation="0 -90 0" obj-model="mtl: desk_only.mtl; obj: desk_only.obj" rotation="0 -90 0" src="https://i.imgur.com/j7zmzsM.jpeg" id="desk"></a-entity>
       <!--<a-entity sound="src: #ambientSound; autoplay: true;loop: true"></a-entity>
       <a-entity gltf-model="#roomTest" scale="0.19 0.19 0.19"></a-entity>
       -->
@@ -79,9 +81,10 @@ pointlight
       <a-entity gltf-model="#deskItems" position="-4 -0.4 0" scale="0.175 0.175 0.175"></a-entity>
       <a-entity gltf-model="#domes" position="-4 -0.4 0" scale="0.175 0.175 0.175"></a-entity>
       <a-entity gltf-model="#realSenseBooth" position="-4 -0.4 0" scale="0.175 0.175 0.175"></a-entity>
+      <a-entity gltf-model="#roof" position="-4 -0.4 0" scale="0.175 0.175 0.175"></a-entity>
 
 
-      <a-entity gltf-model="#watch" scale="10 10 10"></a-entity>
+     
       <a-plane position="0.347 0.924 -1.255" scale="0.083 0.108 0.062" rotation="-90 0 0" width="4" height="4" src="resumesp21_cyrus_optimized.jpg" shadow></a-plane>
 
     </a-scene>
