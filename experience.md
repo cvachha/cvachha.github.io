@@ -45,7 +45,7 @@ menu-show: true
 				<header class="major">
 					<h3>Blaze Game Studios</h3>
 				</header>
-				<p>Co-Founder, developer (2014-2019)</p>
+				<p>Co-Founder, developer, instructor (2014-2019)</p>
 				<p> Conducted Lua, Java, and Mobile Game Development camps for middle and high school students. We developed 7 mobile apps for iOS and Android.</p>
 				<ul class="actions">
 					<li><a href="blazegamestudios.html" class="button">Learn more</a></li>

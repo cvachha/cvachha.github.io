@@ -14,7 +14,7 @@ show_tile: false
 				<header class="major">
 					<h3>NeRF Environment Creation System</h3>
 				</header>
-				<p>Description</p>
+				<p></p>
 				<ul class="actions">
 					<li><a href="nerfenvironmentcreation.html" class="button">Learn more</a></li>
 				</ul>
@@ -30,7 +30,7 @@ show_tile: false
 				<header class="major">
 					<h3>Virtual Production Experiments</h3>
 				</header>
-				<p>Description</p>
+				<p></p>
 				<ul class="actions">
 					<li><a href="virtualProduction.html" class="button">Learn more</a></li>
 				</ul>
@@ -38,7 +38,7 @@ show_tile: false
 		</div>
 	</section>
     <section>
-		<video id="v0" width="100%" autoplay loop muted controls>
+		<video id="v0" width=500px height=300px autoplay loop muted controls>
 			<source src="assets/videos/berkeleyBuildingsLuma.mp4" type="video/mp4" />
 		</video>
 		<div class="content">
@@ -46,7 +46,7 @@ show_tile: false
 				<header class="major">
 					<h3>NeRF Gallery</h3>
 				</header>
-				<p>Description</p>
+				<p></p>
 				<ul class="actions">
 					<li><a href="nerf_gallery.html" class="button">Learn more</a></li>
 				</ul>
