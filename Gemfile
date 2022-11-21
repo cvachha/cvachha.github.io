@@ -1,7 +1,9 @@
 source 'https://rubygems.org'
 
-# gem "jekyll", "~> 4.0.0"
+gem 'jekyll', '~> 4..'
+
 group :jekyll_plugins do
-  gem "jekyll-feed", "~> 0.11"
-  gem "github-pages", "202"
+  gem 'jekyll-timeago', '~> 0.13.1'
 end
+
+gem "webrick", "~> 1.7"

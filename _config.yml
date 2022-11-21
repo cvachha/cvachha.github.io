@@ -3,8 +3,8 @@ title: Cyrus Vachha
 subtitle: 
 email: cvachha(at)berkeley.edu
 description: CS Student, VR Researcher @ UC Berkeley
-baseurl: "/forty-jekyll-theme" #"cvachha.github.io" # the subpath of your site, e.g. /blog original: /forty-jekyll-theme
-url: cvachha.github.io # the base hostname & protocol for your site
+baseurl: "" #"cvachha.github.io" # the subpath of your site, e.g. /blog original: /forty-jekyll-theme
+url: # cvachha.github.io # the base hostname & protocol for your site
 author:
 
 #street_address: 1234 Somewhere Road
