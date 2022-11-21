@@ -12,9 +12,9 @@ show_tile: false
 		<div class="content">
 			<div class="inner">
 				<header class="major">
-					<h3>NeRF Environment Creation System</h3>
+					<h3>VR NeRF Environment Creation System</h3>
 				</header>
-				<p></p>
+				<p>Outline of current research project on creating a NeRF creation system for VR</p>
 				<ul class="actions">
 					<li><a href="nerfenvironmentcreation.html" class="button">Learn more</a></li>
 				</ul>
@@ -30,7 +30,7 @@ show_tile: false
 				<header class="major">
 					<h3>Virtual Production Experiments</h3>
 				</header>
-				<p></p>
+				<p>A few experiements including virtual real time backgrounds and virtual metahuman actors</p>
 				<ul class="actions">
 					<li><a href="virtualProduction.html" class="button">Learn more</a></li>
 				</ul>
@@ -46,7 +46,7 @@ show_tile: false
 				<header class="major">
 					<h3>NeRF Gallery</h3>
 				</header>
-				<p></p>
+				<p>Renders of select Neural Radiance Fields I captured from Luma Labs AI, NVidia Instant NeRF, and NerfStudio</p>
 				<ul class="actions">
 					<li><a href="nerf_gallery.html" class="button">Learn more</a></li>
 				</ul>
@@ -59,7 +59,7 @@ show_tile: false
 	<header class="major">
 					<h3>Background of Interest</h3>
 				</header>
-				<p>Blog style post explaining the timeline of my interest in this</p>
+				<p>Blog style post explaining the timeline of my interest and motivation in NeRFs, lightfields, and neural rendering</p>
 				<ul class="actions">
 					<li><a href="nerfbackgroundinfo.html" class="button">Learn more</a></li>
 				</ul>

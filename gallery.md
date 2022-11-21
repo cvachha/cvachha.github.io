@@ -25,7 +25,7 @@ show_tile: true
 <!-- 3D Renders  -->
 <section id="two" class="spotlights">
 	<section>
-		<video id="v0" width="100%" width=500px height=300px autoplay loop muted controls>
+		<video id="v0" width=500px height=300px autoplay loop muted controls>
     <source src="assets/videos/Polygon_Sunrise_Cyrus_Vachha.mp4" type="video/mp4" />
   </video>
 		<div class="content">
@@ -58,7 +58,7 @@ show_tile: true
 		</div>
 </section>
 	<section id="three">
-		<video id="v0" width="100%" width=500px height=300px autoplay loop muted controls>
+		<video id="v0" width=500px height=300px autoplay loop muted controls>
 			<source src="assets/videos/berkeleyBuildingsLuma.mp4" type="video/mp4" />
 		</video>
 		<div class="content">
@@ -66,7 +66,7 @@ show_tile: true
 				<header class="major">
 					<h2>NeRFs</h2>
 				</header>
-				<p>Renders of select Neural Radiance Fields I captured from Luma Labs AI and NVidia Instant NeRF</p>
+				<p>Renders of select Neural Radiance Fields I captured from Luma Labs AI, NVidia Instant NeRF, and NerfStudio</p>
 				<ul class="actions">
 					<li><a href="nerf_gallery.html" class="button">View more</a></li>
 				</ul>
@@ -86,7 +86,6 @@ show_tile: true
 				<ul class="actions">
 					<li><a class="button">Coming Soon</a></li>
 					<li><a href="https://www.youtube.com/channel/UCil6yg2M9cTtPu0DQoGs_bg" class="button">YouTube Channel</a></li>
-
 				</ul>
 			</div>
 		</div>
