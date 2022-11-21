@@ -1,0 +1,45 @@
+# site settings
+title: Cyrus Vachha
+subtitle: 
+email: cvachha(at)berkeley.edu
+description: CS Student, VR Researcher @ UC Berkeley
+baseurl: "/forty-jekyll-theme" #"cvachha.github.io" # the subpath of your site, e.g. /blog original: /forty-jekyll-theme
+url: cvachha.github.io # the base hostname & protocol for your site
+author:
+
+#street_address: 1234 Somewhere Road
+#city: Berkeley
+#state: CA
+#zip_code: 55555
+#country: United States of America
+#phone: (716) 555-5555
+
+
+# homepage tiles
+tiles-source: pages # accepts "posts" or "pages"
+tiles-count: 6
+
+# social settings (key must match name of font awesome icon)
+# see https://fontawesome.com/icons?d=gallery&p=2&s=brands
+# Icons are not shown if value is empty
+# You need to restart jekyll for changes to have an effect
+socials:
+  GitHub: https://github.com/cvachha
+  GitLab:
+  youtube: https://www.youtube.com/channel/UCil6yg2M9cTtPu0DQoGs_bg
+  Instagram:
+  LinkedIn: https://www.linkedin.com/in/cyrus-vachha-35765a7a/
+  Twitter: 
+  Slack:
+
+# build settings
+markdown: kramdown
+
+sass:
+  style: compressed
+
+exclude:
+- "*.gemspec"
+- LICENSE.md
+- CONTRIBUTING.md
+- README.md 

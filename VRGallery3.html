@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>VR Environment</title>
+    <meta name="description" content="360&deg; Image Gallery - A-Frame">
+    <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-event-set-component@5/dist/aframe-event-set-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-layout-component@5.3.0/dist/aframe-layout-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-template-component@3.2.1/dist/aframe-template-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-proxy-event-component@2.1.0/dist/aframe-proxy-event-component.min.js"></script>
+    <script src="vr_world/aframe-stereo-component.min.js"></script>
+
+    
+    <!-- Image link template to be reused. v1.0.4 -->
+    <script id="link" type="text/html">
+      <a-entity class="link"
+        geometry="primitive: plane; height: 1; width: 1"
+        material="shader: flat; src: ${thumb}; opacity: 0.8"
+        event-set__mouseenter="scale: 1.2 1.2 1"
+        event-set__mouseleave="scale: 1 1 1"
+        event-set__click="_target: #image-360_L; _delay: 300; material.src: ${src}_L"
+        event-set__click="_target: #image-360_R; _delay: 300; material.src: ${src}_R"
+
+        proxy-event="event: click; to: #image-360_L; as: fade"
+        proxy-event="event: click; to: #image-360_R; as: fade"
+
+        sound="on: click; src: #click-sound"></a-entity>
+    </script>
+    
+  </head>
+  <body>
+    <a-scene>
+      <a-assets>       
+        <img id="desk1-thumb" crossorigin="anonymous" src="assets/images/stereoImg/backdesk_5_stereoHD_L.png">
+        <img id="lego1-thumb" crossorigin="anonymous" src="assets/images/stereoImg/legoDisplay_1_stereo_L.png">
+        <img id="atrium1-thumb" crossorigin="anonymous" src="assets/images/stereoImg/atrium_1_stereo_L.png">
+
+        <audio id="click-sound" crossorigin="anonymous" src="https://cdn.aframe.io/360-image-gallery-boilerplate/audio/click.ogg"></audio>
+        
+        <img id="desk1_L" crossorigin="anonymous" src="assets/images/stereoImg/backdesk_5_stereoHD_L.png">
+        <img id="desk1_R" crossorigin="anonymous" src="assets/images/stereoImg/backdesk_5_stereoHD_R.png">
+
+        <img id="lego1_L" crossorigin="anonymous" src="assets/images/stereoImg/legoDisplay_1_stereo_L.png">
+        <img id="lego1_R" crossorigin="anonymous" src="assets/images/stereoImg/legoDisplay_1_stereo_R.png">
+
+        <img id="atrium1_L" crossorigin="anonymous" src="assets/images/stereoImg/atrium_1_stereo_L.png">
+        <img id="atrium1_R" crossorigin="anonymous" src="assets/images/stereoImg/atrium_1_stereo_R.png">
+
+
+        <a-mixin
+        id="poster"
+        geometry="primitive: plane; width: 0.544768; height: 0.786432"
+        material="color: white; shader: flat"
+        material="shader: flat"
+        position="0 0 0.005"
+       ></a-mixin>
+
+      </a-assets>
+
+      <!-- 360-degree image. -->
+      <!--<a-sky id="image-360" radius="10" src="#desk1_L"
+             animation__fade="property: components.material.material.color; type: color; from: #FFF; to: #000; dur: 300; startEvents: fade"
+             animation__fadeback="property: components.material.material.color; type: color; from: #000; to: #FFF; dur: 300; startEvents: animationcomplete__fade"></a-sky>
+      -->
+      <a-sky id="image-360_L" src="#desk1_L" stereo="eye:left" 
+      animation__fade="property: components.material.material.color; type: color; from: #FFF; to: #000; dur: 300; startEvents: fade"
+      animation__fadeback="property: components.material.material.color; type: color; from: #000; to: #FFF; dur: 300; startEvents: animationcomplete__fade"></a-sky>
+      <a-sky id="image-360_R" src="#desk1_R" stereo="eye:right"
+      animation__fade="property: components.material.material.color; type: color; from: #FFF; to: #000; dur: 300; startEvents: fade"
+      animation__fadeback="property: components.material.material.color; type: color; from: #000; to: #FFF; dur: 300; startEvents: animationcomplete__fade"></a-sky>
+       
+    
+    <a-entity id="ui" position="0 1.6 -2.5">
+        <!-- Poster menu -->
+        <a-entity id="menu" highlight>
+            <a-entity id="desk1-button" position="-0.8 0 0" mixin="frame" class="raycastable menu-button">
+            <a-entity material="src: #desk1-thumb;" mixin="poster"></a-entity>
+            </a-entity>
+
+            <a-entity id="lego1-button" position="0 0 0" mixin="frame" class="raycastable menu-button">
+            <a-entity material="src: #lego1-thumb" mixin="poster"></a-entity>
+            </a-entity>
+
+            <a-entity id="atrium1-button" position="0.8 0 0" mixin="frame" class="raycastable menu-button">
+            <a-entity material="src: #atrium1-thumb" mixin="poster"></a-entity>
+            </a-entity>
+        </a-entity>
+    </a-entity>
+
+    
+
+
+      <!-- Camera + cursor. -->
+      <a-entity camera look-controls position="0 0 0" rotation="0 35 0" stereocam="eye:left;">
+        <a-cursor
+          id="cursor"
+          animation__click="property: scale; startEvents: click; from: 0.1 0.1 0.1; to: 1 1 1; dur: 150"
+          animation__fusing="property: fusing; startEvents: fusing; from: 1 1 1; to: 0.1 0.1 0.1; dur: 1500"
+          event-set__mouseenter="_event: mouseenter; color: springgreen; opacity: 0.7"
+          event-set__mouseleave="_event: mouseleave; color: black; opacity: 0.0"
+          material="color: black; shader: flat; opacity: 0.0"></a-cursor>
+          raycaster="objects: .link"></a-cursor>
+      </a-entity>
+    </a-scene>
+  </body>
+</html> 
+        
+
+

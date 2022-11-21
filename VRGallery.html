@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>The Room</title>
+    <meta name="description" content="VR Environment Gallery">
+    <script src="https://aframe.io/releases/0.5.0/aframe.min.js"></script>
+    <script src="https://npmcdn.com/aframe-animation-component@3.0.1"></script>
+    <script src="https://npmcdn.com/aframe-event-set-component@3.0.1"></script>
+    <script src="https://npmcdn.com/aframe-layout-component@3.0.1"></script>
+    <script src="https://npmcdn.com/aframe-template-component@3.1.1"></script>
+    <script src="set-image.js"></script>
+    <script src="vr_world/aframe-stereo-component.min.js"></script>
+  </head>
+  <body>
+    <a-scene>
+      <a-assets>
+        <!-- Sky -->
+        <img id="desk1-thumb" crossorigin="anonymous" src="assets/images/stereoImg/backdesk_5_stereoHD_L.png">
+        <img id="lego1-thumb" crossorigin="anonymous" src="assets/images/stereoImg/legoDisplay_1_stereo_L.png">
+        <img id="atrium1-thumb" crossorigin="anonymous" src="assets/images/stereoImg/atrium_1_stereo_L.png">
+
+        <audio id="click-sound" crossorigin="anonymous" src="https://cdn.aframe.io/360-image-gallery-boilerplate/audio/click.ogg"></audio>
+        
+        <img id="desk1_L" crossorigin="anonymous" src="assets/images/stereoImg/backdesk_5_stereoHD_L.png">
+        <img id="desk1_R" crossorigin="anonymous" src="assets/images/stereoImg/backdesk_5_stereoHD_R.png">
+
+        <img id="lego1_L" crossorigin="anonymous" src="assets/images/stereoImg/legoDisplay_1_stereo_L.png">
+        <img id="lego1_R" crossorigin="anonymous" src="assets/images/stereoImg/legoDisplay_1_stereo_R.png">
+
+        <img id="atrium1_L" crossorigin="anonymous" src="assets/images/stereoImg/atrium_1_stereo_L.png">
+        <img id="atrium1_R" crossorigin="anonymous" src="assets/images/stereoImg/atrium_1_stereo_R.png">
+
+        <!-- Image link template to be reused. -->
+        <script id="link" type="text/html">
+          <a-entity class="link"
+            geometry="primitive: plane; height: 1; width: 1"
+            material="shader: flat; src: ${thumb}; opacity: 0.8"
+            event-set__1="_event: mousedown; scale: 1 1 1"
+            event-set__2="_event: mouseup; scale: 1.2 1.2 1"
+            event-set__3="_event: mouseenter; scale: 1.2 1.2 1"
+            event-set__4="_event: mouseleave; scale: 1 1 1"
+            set-image="on: click; target: #image-360_L; src: ${src}_L"
+            set-image="on: click; target: #image-360_R; src: ${src}_R"
+
+            sound="on: click; src: #click-sound"></a-entity>
+        </script>
+      </a-assets>
+
+      <!-- 360-degree image. -->
+      <!-- <a-sky id="image-360" radius="10" src="#theta1"></a-sky> -->
+      <a-sky id="image-360_L" src="#desk1_L" stereo="eye:left"></a-sky>
+      <a-sky id="image-360_R" src="#desk1_R" stereo="eye:right"></a-sky>
+
+      <!-- Image links. -->
+      <a-entity id="links" layout="type: line; margin: 1.5" position="0 -1 -4">
+        <a-entity template="src: #link" data-src="#lego1" data-thumb="#lego1-thumb"></a-entity>
+        <a-entity template="src: #link" data-src="#desk1" data-thumb="#desk1-thumb"></a-entity>
+        <a-entity template="src: #link" data-src="#atrium1" data-thumb="#atrium1-thumb"></a-entity>
+      </a-entity>
+
+      <!-- Camera + cursor. -->
+      <a-entity camera look-controls position="0 0 0" rotation="0 35 0" stereocam="eye:left;">
+        <a-cursor id="cursor"
+          animation__click="property: scale; startEvents: click; from: 0.1 0.1 0.1; to: 1 1 1; dur: 150"
+          animation__fusing="property: fusing; startEvents: fusing; from: 1 1 1; to: 0.1 0.1 0.1; dur: 1500"
+          event-set__1="_event: mouseenter; color: springgreen; opacity: 0.7"
+          event-set__2="_event: mouseleave; color: black; opacity: 0.0"
+          fuse="true"
+          raycaster="objects: .link"
+          material="color: black; shader: flat; opacity: 0.0"></a-cursor>
+
+        </a-cursor>
+          
+
+      </a-entity>
+    </a-scene>
+  </body>
+</html>

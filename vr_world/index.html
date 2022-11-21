@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <title>A-Frame 360 Stereoscopic Video Test</title>
+        <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
+        <script src="aframe-stereo-component.min.js"></script>
+    </head>
+    <body>
+        <a-scene>
+            <video id="myVideo" src="livingroom1_vr_2.mp4" autoplay loop></video> 
+
+            <a-assets>
+                <img id="left" src="city_pano.jpg">
+                <img id="right" src="city_night_pano.jpg">
+            </a-assets>
+
+            <a-camera id="camera" lookcontrols position="0 0 0" stereocam="eye:left;"></a-camera>
+            
+
+            <!--<a-sky id="sky1" src="#left" stereo="eye:left"></a-sky> -->
+            <!--<a-sky id="sky2" src="#right" stereo="eye:right"></a-sky>  -->
+
+
+             <a-videosphere src="#myVideo" stereo="eye:left"></a-videosphere> 
+            <a-videosphere src="#myVideo" stereo="eye:right"></a-videosphere> 
+        </a-scene>
+    </body>
+</html>
+

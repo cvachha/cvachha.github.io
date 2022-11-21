@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <title>VR Environment</title>
+        <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
+        <script src="vr_world/aframe-stereo-component.min.js"></script>
+    </head>
+    <body>
+        <a-scene>
+            <!--<video id="myVideo" src="test.mp4" autoplay loop></video>  -->
+
+            <a-assets>
+                <img id="left" src="assets/images/stereoImg/atrium_1_stereo_L.png">
+                <img id="right" src="assets/images/stereoImg/atrium_1_stereo_R.png">
+            </a-assets>
+
+            <a-camera id="camera" lookcontrols position="0 0 0" stereocam="eye:left;"></a-camera>
+            
+
+            <a-sky id="sky1" src="#left" stereo="eye:left"></a-sky>
+            <a-sky id="sky2" src="#right" stereo="eye:right"></a-sky> 
+
+
+            <!-- <a-videosphere src="#myVideo" stereo="eye:left"></a-videosphere> -->
+            <!-- <a-videosphere src="#myVideo" stereo="eye:right"></a-videosphere> -->
+        </a-scene>
+    </body>
+</html>
+

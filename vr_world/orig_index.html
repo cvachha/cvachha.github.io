@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Cyrus Vachha Home Environment</title>
+    <meta name="description" content="Cyrus Vachha Home Environment">
+    <script src="https://aframe.io/releases/1.1.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
+
+  </head>
+  <body>
+    <a-scene background="color: #FAFAFA" renderer="precision: mediump">
+      <a-assets timeout="2000">
+        <a-asset-item id="room" src="theroomv2_test9.gltf"></a-asset-item>
+        <a-asset-item id="vrHeadsets1" src="theroomv2_test9_vrheadsets1.gltf"></a-asset-item>
+        <a-asset-item id="vrHeadsets2" src="theroomv2_test9_vrheadsets2_edited.gltf"></a-asset-item>
+        <a-asset-item id="showcase" src="theroomv2_test9_showcase.gltf"></a-asset-item>
+        <a-asset-item id="gallery" src="theroomv2_test9_gallery.gltf"></a-asset-item>
+        <a-asset-item id="deskItems" src="theroomv2_test8_deskItems.gltf"></a-asset-item>
+        <a-asset-item id="realSenseBooth" src="theroomv2_test9_rsBooth.gltf"></a-asset-item>
+        <a-asset-item id="domes" src="theroomv2_test9_domes.gltf"></a-asset-item>
+        <a-asset-item id="roof" src="theroomv2_test9_roof.gltf"></a-asset-item>
+
+        <a-asset-item id="glassTest" src="theroomv2_test9_glass.obj"></a-asset-item>
+        <a-asset-item id="glassTest-mtl" src="theroomv2_test9_glass.mtl"></a-asset-item>
+
+      
+        <img id="panoPatio" src="city_night_pano.jpg"></a-asset-item>
+        <audio id="ambientSound" src="ambient_connect.mp3"></audio>
+      </a-assets>
+
+      <a-sky id="image-360" radius="100" src="#panoPatio"></a-sky>
+
+      
+      <!--
+          <a-asset-item id="leftShow" src="theroomv1.gltf"></a-asset-item>
+        <a-asset-item id="roomTest" src="theroomv1_1.gltf"></a-asset-item>
+            <a-plane position="0 0 -1.474" rotation="-90 0 0" width="4" height="4" color="#999999" shadow></a-plane>
+        <a-asset-item id="watch" src="watch_v1.gltf"></a-asset-item>
+
+      <a-entity generic-tracked-controller-controls=""></a-entity>
+      <a-entity oculus-touch-controls="hand: left"></a-entity>
+      <a-entity oculus-touch-controls="hand: right"></a-entity>
+      <a-entity position="0.261 0.849 -1.282" scale="0.048 0.048 0.048" rotation="0 -90 0" obj-model="mtl: desk_only.mtl; obj: desk_only.obj" rotation="0 -90 0" src="https://i.imgur.com/j7zmzsM.jpeg" id="desk"></a-entity>
+      <a-entity gltf-model="#watch" scale="10 10 10"></a-entity>
+      -->
+      
+      <!--<a-entity sound="src: #ambientSound; autoplay: true;loop: true"></a-entity>
+      <a-entity gltf-model="#roomTest" scale="0.19 0.19 0.19"></a-entity>
+      -->
+
+      
+      <a-entity id="cameraRig" movement-controls navigator="cameraRig: #cameraRig; cameraHead: #head; collisionEntities: .collision; ignoreEntities: .clickable" position="0 0 0" rotation="0 0 0">
+        <a-entity id="head" camera="active: true" position="0 1.6 0" look-controls="pointerLockEnabled: true; reverseMouseDrag: true" ></a-entity>
+              <a-entity oculus-touch-controls="hand: left"></a-entity>
+              <a-entity oculus-touch-controls="hand: right"></a-entity>
+      </a-entity>
+
+
+<!--
+        <a-entity gltf-model="#room" position="-4 0 0" scale="0.175 0.175 0.175" sound="src: #ambientSound; loop: true; on: click"></a-entity>
+better light: light="intensity:  0.6;  castShadow:  true"
+<a-entity light="intensity: 0.6; castShadow: true" position="1.01222 1 0.44952" data-aframe-default-light="" aframe-injected=""></a-entity>
+
+pointlight
+<a-entity light="intensity: 0.49; castShadow: true; type: point" position="6.55764 2.86747 0.56905" data-aframe-default-light="" aframe-injected=""></a-entity>
+
+-->
+
+      <a-entity light="intensity: 0.49; castShadow: true; type: point" position="6.55764 2.86747 0.56905" data-aframe-default-light="" aframe-injected=""></a-entity>
+
+
+
+      <a-entity obj-model="obj: #glassTest; mtl: #glassTest-mtl" position="-4 -0.4 0" scale="0.175 0.175 0.175"></a-entity>
+      <a-entity gltf-model="#room" position="-4 -0.4 0" scale="0.175 0.175 0.175" sound="src: #ambientSound; loop: true; on: click"></a-entity>
+     
+      <a-entity gltf-model="#vrHeadsets1" position="-4 -0.4 0" scale="0.175 0.175 0.175"></a-entity>
+      <a-entity gltf-model="#vrHeadsets2" position="-4 -0.4 0" scale="0.175 0.175 0.175"></a-entity>
+      <a-entity gltf-model="#gallery" position="-4 -0.4 0" scale="0.175 0.175 0.175"></a-entity>
+      <a-entity gltf-model="#showcase" position="-4 -0.4 0" scale="0.175 0.175 0.175"></a-entity>
+      <a-entity gltf-model="#deskItems" position="-4 -0.4 0" scale="0.175 0.175 0.175"></a-entity>
+      <a-entity gltf-model="#domes" position="-4 -0.4 0" scale="0.175 0.175 0.175"></a-entity>
+      <a-entity gltf-model="#realSenseBooth" position="-4 -0.4 0" scale="0.175 0.175 0.175"></a-entity>
+      <a-entity gltf-model="#roof" position="-4 -0.4 0" scale="0.175 0.175 0.175"></a-entity>
+
+
+     
+      <a-plane position="0.347 0.924 -1.255" scale="0.083 0.108 0.062" rotation="-90 0 0" width="4" height="4" src="resumesp21_cyrus_optimized.jpg" shadow></a-plane>
+
+    </a-scene>
+  </body>
+</html>
+
+
+<!--
+
+  light="color:  #ffffff;  intensity:  1.47;  castShadow:  true;  angle:  60.08;"
+  light="intensity:  1.73;  type:  point"
+  sound="src:  ambient_connect.mp3;  loop:  true;  on:  click;  autoplay:  true"
+-->

@@ -1,0 +1,24 @@
+# Blender MTL File: 'theroomv2.blend'
+# Material Count: 2
+
+newmtl blazeStand
+Ns 660.022791
+Ka 0.650909 0.650909 0.650909
+Kd 0.887807 0.887807 0.887807
+Ks 0.772727 0.772727 0.772727
+Ke 0.0 0.0 0.0
+Ni 1.450000
+d 1.000000
+illum 3
+
+newmtl glass_clear
+Ns 708.499122
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.906863 0.906863 0.906863
+Ke 0.0 0.0 0.0
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd translucenttenth.png
+map_d translucenttenth.png
