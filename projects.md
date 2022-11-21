@@ -41,6 +41,39 @@ show-title: true
 			</div>
 		</div>
 	</section>
+	<section id="six">
+		<a class="image">
+			<img src="{% link assets/images/vti_1.PNG %}" alt="" data-position="top center" />
+		</a>
+		<div class="content">
+			<div class="inner">
+				<header class="major">
+					<h3>Virtual Toy Interaction</h3>
+				</header>
+				<p>Intel RealSense Challenge 2014 submission</p>
+				<p>I created a Unity game using the Intel RealSense depth sensing camera that allows the player to use physical toys as a controller in the game. The original idea was to build a system where a user would interact with real Lego toys and with virtual ones in an Augmented Reality environment, but this was in 2014-2015, so the tools were not ready yet to build the original vision. I have attached the original video vision and supplementary materials on the project page.</p>
+				<ul class="actions">
+					<li><a href="virtualToyInteraction.html" class="button">Learn more</a></li>
+				</ul>				
+			</div>
+		</div>
+	</section>
+	<section id="five">
+	<a class="image">
+			<img src="{% link assets/images/nerf_creation_image.PNG %}" alt="" data-position="25% 25%" />
+		</a>
+		<div class="content">
+			<div class="inner">
+				<header class="major">
+					<h2>Experimentation with NeRFs/Neural Rendering</h2>
+				</header>
+				<p>Various experiments with NeRFS, Neural Rendering, Relighting, Virtual Production, AI, and more</p>
+				<ul class="actions">
+					<li><a href="experimentationNeural.html" class="button next">Learn more</a></li>
+				</ul>
+			</div>
+		</div>
+	</section>
 	<section>
 		<a  class="image">
 			<img src="{% link assets/images/solarsystemvrarmrbanner2.PNG %}" alt="" data-position="top center" />
@@ -56,23 +89,6 @@ show-title: true
 					<li><a href="generic.html" class="button">Learn more</a></li>
 				</ul>
 				-->
-			</div>
-		</div>
-	</section>
-	<section>
-		<a class="image">
-			<img src="{% link assets/images/vti_1.PNG %}" alt="" data-position="top center" />
-		</a>
-		<div class="content">
-			<div class="inner">
-				<header class="major">
-					<h3>Virtual Toy Interaction</h3>
-				</header>
-				<p>Intel RealSense Challenge 2014 submission</p>
-				<p>I created a Unity game using the Intel RealSense depth sensing camera that allows the player to use physical toys as a controller in the game. The original idea was to build a system where a user would interact with real Lego toys and with virtual ones in an Augmented Reality environment, but this was in 2014-2015, so the tools were not ready yet to build the original vision. I have attached the original video vision and supplementary materials on the project page.</p>
-				<ul class="actions">
-					<li><a href="virtualToyInteraction.html" class="button">Learn more</a></li>
-				</ul>				
 			</div>
 		</div>
 	</section>
@@ -104,19 +120,6 @@ show-title: true
 		</div>
 	</section>
 	<!-- Five -->
-	<section id="five">
-		<div class="content">
-			<div class="inner">
-				<header class="major">
-					<h2>Experimentation with NeRFs/Neural Rendering</h2>
-				</header>
-				<p>Various experiments with NeRFS, Neural Rendering, Relighting, Virtual Production, AI, and more</p>
-				<ul class="actions">
-					<li><a href="experimentationNeural.html" class="button next">Learn more</a></li>
-				</ul>
-			</div>
-		</div>
-	</section>
 	<!-- Three -->
 	<section id="three">
 		<a class="image">

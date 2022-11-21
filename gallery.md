@@ -25,7 +25,7 @@ show_tile: true
 <!-- 3D Renders  -->
 <section id="two" class="spotlights">
 	<section>
-		<video id="v0" width="100%" autoplay loop muted controls>
+		<video id="v0" width="100%" width=500px height=300px autoplay loop muted controls>
     <source src="assets/videos/Polygon_Sunrise_Cyrus_Vachha.mp4" type="video/mp4" />
   </video>
 		<div class="content">
@@ -58,7 +58,7 @@ show_tile: true
 		</div>
 </section>
 	<section id="three">
-		<video id="v0" width="100%" autoplay loop muted controls>
+		<video id="v0" width="100%" width=500px height=300px autoplay loop muted controls>
 			<source src="assets/videos/berkeleyBuildingsLuma.mp4" type="video/mp4" />
 		</video>
 		<div class="content">
