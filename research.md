@@ -14,26 +14,95 @@ menu-show: true
 <section id="one">
 	<div class="inner">
 		<header class="major">
-			<h2>Publications</h2>
+			<h2>Publications and Projects</h2>
 		</header>
 		<p></p>
 	</div>
 </section>
 
 <!-- Two -->
+<div class="inner">
+
+<section id="two" class="spotlights">
+	<section>
+		<a href="https://instruct-gs2gs.github.io/" class="image">
+			<img src="{% link assets/images/igs2gs_face.gif %}" alt="" data-position="center center" valign="center" style="border-radius: 20px"/>
+		</a>
+		<div class="content">
+			<div class="inner">
+				<header class="major">
+					<h3>Instruct-GS2GS</h3>
+				</header>
+				<p style="font-size: 12pt">We propose a method for editing 3D Gaussian Splatting (3DGS) scenes with text-instructions in a method similar to Instruct-NeRF2NeRF. Given a 3DGS scene of a scene and the collection of images used to reconstruct it, our method uses an image-conditioned diffusion model (InstructPix2Pix) to iteratively edit the input images while optimizing the underlying scene, resulting in an optimized 3D scene that respects the edit instruction. We demonstrate that our proposed method is able to edit large-scale, real-world scenes, and is able to accomplish more realistic, targeted edits than prior work.
+				<br>
+				Paper comming soon</p>
+				<ul class="actions">
+					<li><a href="https://instruct-gs2gs.github.io/" class="button">Project Page</a></li>
+					<li><a href="https://github.com/cvachha/instruct-gs2gs" class="button">Code</a></li>
+				</ul>
+			</div>
+		</div>
+	</section>
+</section>
+
+<section id="two" class="spotlights">
+	<section>
+		<a href="https://docs.nerf.studio/extensions/blender_addon.html" class="image">
+			<img src="{% link assets/images/nerfstudio_teaser_1.gif %}" alt="" data-position="center center" style="border-radius: 20px"/>
+		</a>
+		<div class="content">
+			<div class="inner">
+				<header class="major">
+					<h3>Nerfstudio Blender VFX Add-on</h3>
+				</header>
+				<p style="font-size: 12pt">We present a pipeline for integrating NeRFs into traditional compositing VFX pipelines using Nerfstudio, an open-source framework for training and rendering NeRFs. Our approach involves using Blender, a widely used open-source 3D creation software, to align camera paths and composite NeRF renders with meshes and other NeRFs, allowing for seamless integration of NeRFs into traditional VFX pipelines. Our NeRF Blender add-on allows for more controlled camera trajectories of photorealistic scenes, compositing meshes and other environmental effects with NeRFs, and compositing multiple NeRFs in a single scene.This approach of generating NeRF aligned camera paths can be adapted to other 3D tool sets and workflows, enabling a more seamless integration of NeRFs into visual effects and film production.
+				<br>
+				Shown in CVPR 2023 Art Gallery
+				<br>
+				Arxiv submission in progress</p>
+				<ul class="actions">
+					<li><a href="https://docs.nerf.studio/extensions/blender_addon.html" class="button">Documentation</a></li>
+					<li><a href="https://www.youtube.com/watch?v=A7La8tWp_0I" class="button">View Video</a></li>
+					<li><a href="https://drive.google.com/file/d/1y2xVk228dabXHfzNOPyNzSh8YRVYGmSc/view?usp=sharing" class="button">View Abstract</a></li>
+				</ul>
+			</div>
+		</div>
+	</section>
+</section>
+
+
+<section id="two" class="spotlights">
+	<section>
+		<a href="https://arxiv.org/abs/2311.14930" class="image">
+			<img src="{% link assets/images/streamfunnel_teaser.png %}" alt="" data-position="center center" style="border-radius: 20px"/>
+		</a>
+		<div class="content">
+			<div class="inner">
+				<header class="major">
+					<h3>StreamFunnel</h3>
+				</header>
+				<p style="font-size: 12pt">The increasing adoption of Virtual Reality (VR) systems in different domains have led to a need to support interaction between many spectators and a VR user. This is common in game streaming, live performances, and webinars. Prior CSCW systems for VR environments are limited to small groups of users. In this work, we identify problems associated with interaction carried out with large groups of users. To address this, we introduce an additional user role: the co-host. They mediate communications between the VR user and many spectators. To facilitate this mediation, we present StreamFunnel, which allows the co-host to be part of the VR application's space and interact with it. The design of StreamFunnel was informed by formative interviews with six experts. StreamFunnel uses a cloud-based streaming solution to enable remote co-host and many spectators to view and interact through standard web browsers, without requiring any custom software. We present results of informal user testing which provides insights into StreamFunnel's ability to facilitate these scalable interactions. Our participants, who took the role of a co-host, found that StreamFunnel enables them to add value in presenting the VR experience to the spectators and relaying useful information from the live chat to the VR user.</p>
+				<ul class="actions">
+					<li><a href="https://arxiv.org/abs/2311.14930" class="button">View Publication (Arxiv)</a></li>
+				</ul>
+			</div>
+		</div>
+	</section>
+</section>
+
 <section id="two" class="spotlights">
 	<section>
 		<a href="https://dl.acm.org/doi/abs/10.1145/3491101.3519816" class="image">
-			<img src="{% link assets/images/webtransceivr_teaser_img.PNG %}" alt="" data-position="center center" />
+			<img src="{% link assets/images/webtransceivr_teaser_img.PNG %}" alt="" data-position="center center" style="border-radius: 20px" />
 		</a>
 		<div class="content">
 			<div class="inner">
 				<header class="major">
 					<h3>WebTransceiVR (CHI 22)</h3>
 				</header>
-				<p>We propose WebTransceiVR, an asymmetric collaboration toolkit which when integrated into a VR application, allows multiple non-VR users to share the virtual space of the VR user. It allows external users to enter and be part of the VR application’s space through standard web browsers on mobile and computers. WebTransceiVR also includes a cloud-based streaming solution that enables many passive spectators to view the scene through any of the active cameras. We conduct informal user testing to gain additional insights for future work.</p>
+				<p style="font-size: 12pt">We propose WebTransceiVR, an asymmetric collaboration toolkit which when integrated into a VR application, allows multiple non-VR users to share the virtual space of the VR user. It allows external users to enter and be part of the VR application’s space through standard web browsers on mobile and computers. WebTransceiVR also includes a cloud-based streaming solution that enables many passive spectators to view the scene through any of the active cameras. We conduct informal user testing to gain additional insights for future work.</p>
 				<ul class="actions">
-					<li><a href="https://dl.acm.org/doi/abs/10.1145/3491101.3519816" class="button">View Publication</a></li>
+					<li><a href="https://dl.acm.org/doi/abs/10.1145/3491101.3519816" class="button">View Publication (ACM)</a></li>
 					<li><a href="https://www.youtube.com/watch?v=UQTCGifpjm8" class="button">View Video</a></li>
 				</ul>
 			</div>
@@ -41,18 +110,17 @@ menu-show: true
 	</section>
 </section>
 
+
 <section id="three">
 	<div class="inner">
 		<header class="major">
 			<h2>Future/Current Research Projects</h2>
 		</header>
-		<p>Currently working on an updated version of WebTransceiVR with a streaming and broadcasting focus. I am also working on a project in capturing, creating, and viewing synthetic NeRF environments in VR.</p>
-
-		<p>My team and I are working on incorporating WebTransceiVR for use in university for instructors to teach with virtual environments.</p>
-
+		<p>I am also working on a project in capturing, creating, and viewing synthetic NeRF environments in VR for my masters thesis.</p>
 	</div>
 </section>
 
+</div>
 <!--
 	<section>
 		<a href="generic.html" class="image">
