@@ -35,7 +35,10 @@ menu-show: true
 				</header>
 				<p style="font-size: 12pt">We propose a method for editing 3D Gaussian Splatting (3DGS) scenes with text-instructions in a method similar to Instruct-NeRF2NeRF. Given a 3DGS scene of a scene and the collection of images used to reconstruct it, our method uses an image-conditioned diffusion model (InstructPix2Pix) to iteratively edit the input images while optimizing the underlying scene, resulting in an optimized 3D scene that respects the edit instruction. We demonstrate that our proposed method is able to edit large-scale, real-world scenes, and is able to accomplish more realistic, targeted edits than prior work.
 				<br>
-				Paper comming soon</p>
+				Paper comming soon
+				<br>
+				Nerfstudio integration supported
+				</p>
 				<ul class="actions">
 					<li><a href="https://instruct-gs2gs.github.io/" class="button">Project Page</a></li>
 					<li><a href="https://github.com/cvachha/instruct-gs2gs" class="button">Code</a></li>
