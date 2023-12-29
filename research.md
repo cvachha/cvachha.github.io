@@ -120,6 +120,8 @@ menu-show: true
 			<h2>Future/Current Research Projects</h2>
 		</header>
 		<p>I am also working on a project in capturing, creating, and viewing synthetic NeRF environments in VR for my masters thesis.</p>
+		<p>Since Jan 2023, I have been contributing features to the Nerfstudio system including the Blender VFX add-on and  VR180/Omnidirectional (VR 360) video/image render outputs.</p>
+
 	</div>
 </section>
 

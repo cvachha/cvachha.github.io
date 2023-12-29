@@ -24,7 +24,24 @@ show-title: true
 </section>
 
 <!-- Two -->
+
 <section id="two" class="spotlights">
+	<section id="five">
+	<a class="image">
+			<img src="{% link assets/images/nerf_creation_image.PNG %}" alt="" data-position="25% 25%" />
+		</a>
+		<div class="content">
+			<div class="inner">
+				<header class="major">
+					<h2>Experimentation with NeRFs/Neural Rendering</h2>
+				</header>
+				<p>Various experiments with NeRFS, Neural Rendering, Relighting, Virtual Production, AI, and more</p>
+				<ul class="actions">
+					<li><a href="experimentationNeural.html" class="button next">Learn more</a></li>
+				</ul>
+			</div>
+		</div>
+	</section>
 	<section>
 		<a href="dysautonomiaVRPage.html" class="image">
 			<img src="{% link assets/images/potsvr_screensohotdrroom.PNG %}" alt="" data-position="center center" />
@@ -55,22 +72,6 @@ show-title: true
 				<ul class="actions">
 					<li><a href="virtualToyInteraction.html" class="button">Learn more</a></li>
 				</ul>				
-			</div>
-		</div>
-	</section>
-	<section id="five">
-	<a class="image">
-			<img src="{% link assets/images/nerf_creation_image.PNG %}" alt="" data-position="25% 25%" />
-		</a>
-		<div class="content">
-			<div class="inner">
-				<header class="major">
-					<h2>Experimentation with NeRFs/Neural Rendering</h2>
-				</header>
-				<p>Various experiments with NeRFS, Neural Rendering, Relighting, Virtual Production, AI, and more</p>
-				<ul class="actions">
-					<li><a href="experimentationNeural.html" class="button next">Learn more</a></li>
-				</ul>
 			</div>
 		</div>
 	</section>
