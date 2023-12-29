@@ -35,9 +35,28 @@ show-title: true
 				<header class="major">
 					<h2>Experimentation with NeRFs/Neural Rendering</h2>
 				</header>
-				<p>Various experiments with NeRFS, Neural Rendering, Relighting, Virtual Production, AI, and more</p>
+				<p>Various experiments with NeRFS, Neural Rendering, Relighting, Virtual Production, and more
+				Will be updated with 2023 projects soon.</p>
 				<ul class="actions">
 					<li><a href="experimentationNeural.html" class="button next">Learn more</a></li>
+					<li><a href="research.html" class="button next">View Research Projects Here</a></li>
+				</ul>
+			</div>
+		</div>
+	</section>
+	<section>
+		<a href="gallery.html" class="image">
+			<img src="{% link assets/images/galleryImage.png %}" alt="" data-position="center center" />
+		</a>
+		<div class="content">
+			<div class="inner">
+				<header class="major">
+					<h3>Gallery</h3>
+				</header>
+				<p>3D renders, 3D models, 3D Captures
+				Will be updated soon with NeRFs taken over the last year.</p>
+				<ul class="actions">
+					<li><a href="gallery.html" class="button">View more</a></li>
 				</ul>
 			</div>
 		</div>

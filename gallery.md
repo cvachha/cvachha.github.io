@@ -3,7 +3,7 @@ layout: landing
 title: Gallery
 description: 3D renders, 3D models, 3D Captures
 image: assets/images/galleryImage.png
-show_tile: true
+show_tile: false
 ---
 
 <!-- Main -->

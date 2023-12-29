@@ -23,7 +23,7 @@ menu-show: true
 <!-- Two -->
 <div class="inner">
 
-<section id="two" class="spotlights">
+<section id="two" class="spotlights" >
 	<section>
 		<a href="https://instruct-gs2gs.github.io/" class="image">
 			<img src="{% link assets/images/igs2gs_face.gif %}" alt="" data-position="center center" valign="center" style="border-radius: 20px"/>
@@ -35,9 +35,9 @@ menu-show: true
 				</header>
 				<p style="font-size: 12pt">We propose a method for editing 3D Gaussian Splatting (3DGS) scenes with text-instructions in a method similar to Instruct-NeRF2NeRF. Given a 3DGS scene of a scene and the collection of images used to reconstruct it, our method uses an image-conditioned diffusion model (InstructPix2Pix) to iteratively edit the input images while optimizing the underlying scene, resulting in an optimized 3D scene that respects the edit instruction. We demonstrate that our proposed method is able to edit large-scale, real-world scenes, and is able to accomplish more realistic, targeted edits than prior work.
 				<br>
-				Paper comming soon
+				- Paper comming soon
 				<br>
-				Nerfstudio integration supported
+				- Nerfstudio integration supported
 				</p>
 				<ul class="actions">
 					<li><a href="https://instruct-gs2gs.github.io/" class="button">Project Page</a></li>
@@ -58,14 +58,14 @@ menu-show: true
 				<header class="major">
 					<h3>Nerfstudio Blender VFX Add-on</h3>
 				</header>
-				<p style="font-size: 12pt">We present a pipeline for integrating NeRFs into traditional compositing VFX pipelines using Nerfstudio, an open-source framework for training and rendering NeRFs. Our approach involves using Blender, a widely used open-source 3D creation software, to align camera paths and composite NeRF renders with meshes and other NeRFs, allowing for seamless integration of NeRFs into traditional VFX pipelines. Our NeRF Blender add-on allows for more controlled camera trajectories of photorealistic scenes, compositing meshes and other environmental effects with NeRFs, and compositing multiple NeRFs in a single scene.This approach of generating NeRF aligned camera paths can be adapted to other 3D tool sets and workflows, enabling a more seamless integration of NeRFs into visual effects and film production.
+				<p style="font-size: 12pt">We present a pipeline for integrating NeRFs into traditional compositing VFX pipelines using Nerfstudio, an open-source framework for training and rendering NeRFs. Our approach involves using Blender, a widely used open-source 3D creation software, to align camera paths and composite NeRF renders with meshes and other NeRFs, allowing for seamless integration of NeRFs into traditional VFX pipelines. Our NeRF Blender add-on allows for more controlled camera trajectories of photorealistic scenes, compositing meshes and other environmental effects with NeRFs, and compositing multiple NeRFs in a single scene. This approach of generating NeRF aligned camera paths can be adapted to other 3D tool sets and workflows, enabling a more seamless integration of NeRFs into visual effects and film production.
 				<br>
-				Shown in CVPR 2023 Art Gallery
+				- Shown in CVPR 2023 Art Gallery
 				<br>
-				Arxiv submission in progress</p>
+				- Arxiv submission in progress</p>
 				<ul class="actions">
 					<li><a href="https://docs.nerf.studio/extensions/blender_addon.html" class="button">Documentation</a></li>
-					<li><a href="https://www.youtube.com/watch?v=A7La8tWp_0I" class="button">View Video</a></li>
+					<li><a href="https://www.youtube.com/watch?v=A7La8tWp_0I" class="button">Video</a></li>
 					<li><a href="https://drive.google.com/file/d/1y2xVk228dabXHfzNOPyNzSh8YRVYGmSc/view?usp=sharing" class="button">View Abstract</a></li>
 				</ul>
 			</div>
@@ -120,8 +120,41 @@ menu-show: true
 			<h2>Future/Current Research Projects</h2>
 		</header>
 		<p>I am also working on a project in capturing, creating, and viewing synthetic NeRF environments in VR for my masters thesis.</p>
-		<p>Since Jan 2023, I have been contributing features to the Nerfstudio system including the Blender VFX add-on and  VR180/Omnidirectional (VR 360) video/image render outputs.</p>
-
+		<p></p>
+	<section id="two" class="spotlights">
+	<section>
+		<a href="https://docs.nerf.studio" class="image">
+			<img src="{% link assets/images/dreamcrafter_progress_teaser.png %}" alt="" data-position="center center" style="border-radius: 20px" />
+		</a>
+		<div class="content">
+			<div class="inner">
+				<header class="major">
+					<h3>Dreamcrafter (In Progress)</h3>
+				</header>
+				<p style="font-size: 12pt">In my current 5th-year masters program (1 year graduate program after 4 year undergrad degree), I am attempting to build the initial concept of the VR environment creation system I proposed in 2022. For my VR/AR class I worked with a team to implement two prototype systems which leverage NeRFs, 3DGS, and Stable Diffusion to create a VR interface for 3D photo-realistic content creation. This includes a system to edit existing NeRF/GS scenes through voice, hand controls, and existing diffusion models (such as Instruct-Pix2Pix). We also have a system leveraging ControlNet to create 2D mockups of scenes based on 3D primitive objects. I am currently devloping the complete system with intelligent natural langue region selection and additional features. We are working towards a research publication for 2024.</p>
+				<!--<ul class="actions">
+					<li><a href="dreamcrafter_progress.html" class="button">Learn More</a></li>
+				</ul> -->
+			</div>
+		</div>
+	</section>
+	<section>
+		<a href="https://docs.nerf.studio" class="image">
+			<img src="{% link assets/images/nerfstudio_logo.png %}" alt="" data-position="center center" style="border-radius: 20px" />
+		</a>
+		<div class="content">
+			<div class="inner">
+				<header class="major">
+					<h3>Nerfstudio Contributions</h3>
+				</header>
+				<p style="font-size: 12pt">Since Jan 2023, I have been contributing features to the Nerfstudio system including the Blender VFX add-on and VR180/Omnidirectional (VR 360) video/image render outputs.</p>
+				<ul class="actions">
+					<li><a href="nerfstudio_contributions.html" class="button">Learn More</a></li>
+				</ul>
+			</div>
+		</div>
+	</section>
+</section>
 	</div>
 </section>
 
