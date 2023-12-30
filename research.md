@@ -35,7 +35,7 @@ menu-show: true
 				</header>
 				<p style="font-size: 12pt">We propose a method for editing 3D Gaussian Splatting (3DGS) scenes with text-instructions in a method similar to Instruct-NeRF2NeRF. Given a 3DGS scene of a scene and the collection of images used to reconstruct it, our method uses an image-conditioned diffusion model (InstructPix2Pix) to iteratively edit the input images while optimizing the underlying scene, resulting in an optimized 3D scene that respects the edit instruction. We demonstrate that our proposed method is able to edit large-scale, real-world scenes, and is able to accomplish more realistic, targeted edits than prior work.
 				<br>
-				- Paper comming soon
+				- Paper coming soon
 				<br>
 				- Nerfstudio integration supported
 				</p>
@@ -131,16 +131,16 @@ menu-show: true
 				<header class="major">
 					<h3>Dreamcrafter (In Progress)</h3>
 				</header>
-				<p style="font-size: 12pt">In my current 5th-year masters program (1 year graduate program after 4 year undergrad degree), I am attempting to build the initial concept of the VR environment creation system I proposed in 2022. For my VR/AR class I worked with a team to implement two prototype systems which leverage NeRFs, 3DGS, and Stable Diffusion to create a VR interface for 3D photo-realistic content creation. This includes a system to edit existing NeRF/GS scenes through voice, hand controls, and existing diffusion models (such as Instruct-Pix2Pix). We also have a system leveraging ControlNet to create 2D mockups of scenes based on 3D primitive objects. I am currently devloping the complete system with intelligent natural langue region selection and additional features. We are working towards a research publication for 2024.</p>
+				<p style="font-size: 12pt">In my current 5th-year masters program (1 year graduate program after 4 year undergrad degree), I am attempting to build the initial concept of the VR environment creation system I proposed in 2022. For my VR/AR class I worked with a team to implement two prototype systems which leverage NeRFs, 3DGS, and Stable Diffusion to create a VR interface for 3D photo-realistic content creation. This includes a system to edit existing NeRF/GS scenes through voice, hand controls, and existing diffusion models (such as Instruct-Pix2Pix). We also have a system leveraging ControlNet to create 2D mockups of scenes based on 3D primitive objects. I am currently developing the complete system with intelligent natural language region selection and additional features. We are working towards a research publication for 2024.</p>
 				<!--<ul class="actions">
 					<li><a href="dreamcrafter_progress.html" class="button">Learn More</a></li>
-				</ul> -->
+				</ul>-->
 			</div>
 		</div>
 	</section>
 	<section>
 		<a href="https://docs.nerf.studio" class="image">
-			<img src="{% link assets/images/nerfstudio_logo.png %}" alt="" data-position="center center" style="border-radius: 20px" />
+			<img src="{% link assets/images/nerfstudio_logo.gif %}" alt="" data-position="center center" style="border-radius: 20px" />
 		</a>
 		<div class="content">
 			<div class="inner">

@@ -10,6 +10,7 @@ show_tile: false
 </ul>
 
 ## Overview
+For my masters thesis, I am trying to create a system based on the proposal I made in 2022 [here](nerfenvironmentcreation.html).
 We propose Dreamcrafter, a Virtual Reality 3D content generation and editing system Assisted by generative AI. Our system addresses this gap by proposing a system that harnesses the immersive experience and spatial interactions of VR, coupled with the advanced capabilities of generative AI, to enhance the process of 3D environment creation and editing. 
 
 NeRF and diffusion models offer unparalleled realism and detail in rendering, however, their integration into user-friendly platforms for 3D environment creation is still in its infancy.
