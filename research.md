@@ -33,6 +33,7 @@ menu-show: true
 				<header class="major">
 					<h3>Instruct-GS2GS</h3>
 				</header>
+				<p style="font-size: 12pt">Authors: **Cyrus Vachha** and Ayaan Haque (2023)</p>
 				<p style="font-size: 12pt">We propose a method for editing 3D Gaussian Splatting (3DGS) scenes with text-instructions in a method similar to Instruct-NeRF2NeRF. Given a 3DGS scene of a scene and the collection of images used to reconstruct it, our method uses an image-conditioned diffusion model (InstructPix2Pix) to iteratively edit the input images while optimizing the underlying scene, resulting in an optimized 3D scene that respects the edit instruction. We demonstrate that our proposed method is able to edit large-scale, real-world scenes, and is able to accomplish more realistic, targeted edits than prior work.
 				<br>
 				- Paper coming soon
@@ -58,6 +59,7 @@ menu-show: true
 				<header class="major">
 					<h3>Nerfstudio Blender VFX Add-on</h3>
 				</header>
+				<p style="font-size: 12pt">Authors: **Cyrus Vachha** (2023)</p>
 				<p style="font-size: 12pt">We present a pipeline for integrating NeRFs into traditional compositing VFX pipelines using Nerfstudio, an open-source framework for training and rendering NeRFs. Our approach involves using Blender, a widely used open-source 3D creation software, to align camera paths and composite NeRF renders with meshes and other NeRFs, allowing for seamless integration of NeRFs into traditional VFX pipelines. Our NeRF Blender add-on allows for more controlled camera trajectories of photorealistic scenes, compositing meshes and other environmental effects with NeRFs, and compositing multiple NeRFs in a single scene. This approach of generating NeRF aligned camera paths can be adapted to other 3D tool sets and workflows, enabling a more seamless integration of NeRFs into visual effects and film production.
 				<br>
 				- Shown in CVPR 2023 Art Gallery
@@ -84,6 +86,7 @@ menu-show: true
 				<header class="major">
 					<h3>StreamFunnel</h3>
 				</header>
+				<p style="font-size: 12pt">Authors: Haohua Lyu, **Cyrus Vachha**, Qianyi Chen, Balasaravanan Thoravi Kumaravel, Bjöern Hartmann (2023)</p>
 				<p style="font-size: 12pt">The increasing adoption of Virtual Reality (VR) systems in different domains have led to a need to support interaction between many spectators and a VR user. This is common in game streaming, live performances, and webinars. Prior CSCW systems for VR environments are limited to small groups of users. In this work, we identify problems associated with interaction carried out with large groups of users. To address this, we introduce an additional user role: the co-host. They mediate communications between the VR user and many spectators. To facilitate this mediation, we present StreamFunnel, which allows the co-host to be part of the VR application's space and interact with it. The design of StreamFunnel was informed by formative interviews with six experts. StreamFunnel uses a cloud-based streaming solution to enable remote co-host and many spectators to view and interact through standard web browsers, without requiring any custom software. We present results of informal user testing which provides insights into StreamFunnel's ability to facilitate these scalable interactions. Our participants, who took the role of a co-host, found that StreamFunnel enables them to add value in presenting the VR experience to the spectators and relaying useful information from the live chat to the VR user.</p>
 				<ul class="actions">
 					<li><a href="https://arxiv.org/abs/2311.14930" class="button">View Publication (Arxiv)</a></li>
@@ -103,6 +106,7 @@ menu-show: true
 				<header class="major">
 					<h3>WebTransceiVR (CHI 22)</h3>
 				</header>
+				<p style="font-size: 12pt">Authors: Haohua Lyu, **Cyrus Vachha**, Qianyi Chen, Odysseus Pyrinis, Avery Liou, Balasaravanan Thoravi Kumaravel, Bjöern Hartmann (2022)</p>
 				<p style="font-size: 12pt">We propose WebTransceiVR, an asymmetric collaboration toolkit which when integrated into a VR application, allows multiple non-VR users to share the virtual space of the VR user. It allows external users to enter and be part of the VR application’s space through standard web browsers on mobile and computers. WebTransceiVR also includes a cloud-based streaming solution that enables many passive spectators to view the scene through any of the active cameras. We conduct informal user testing to gain additional insights for future work.</p>
 				<ul class="actions">
 					<li><a href="https://dl.acm.org/doi/abs/10.1145/3491101.3519816" class="button">View Publication (ACM)</a></li>
