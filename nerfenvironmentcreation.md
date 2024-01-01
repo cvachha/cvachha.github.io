@@ -1,6 +1,6 @@
 ---
 layout: post
-title: NeRF Environment Creation System
+title: NeRF Environment Creation System Proposal (2022)
 
 show_tile: false
 ---

@@ -66,7 +66,7 @@ menu-show: true
 				<ul class="actions">
 					<li><a href="https://docs.nerf.studio/extensions/blender_addon.html" class="button">Documentation</a></li>
 					<li><a href="https://www.youtube.com/watch?v=A7La8tWp_0I" class="button">Video</a></li>
-					<li><a href="https://drive.google.com/file/d/1y2xVk228dabXHfzNOPyNzSh8YRVYGmSc/view?usp=sharing" class="button">View Abstract</a></li>
+					<li><a href="https://cvachha.github.io/assets/pdfs/nerf_vfx_abstract.pdf" class="button">View Abstract</a></li>
 				</ul>
 			</div>
 		</div>

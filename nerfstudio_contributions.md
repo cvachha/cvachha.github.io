@@ -9,7 +9,7 @@ show_tile: false
 	<li><a href="research.html" class="button small">Go back and see more research projects</a></li>
 </ul>
 
-Since Jan 2023 I have made contributions to the Nerfstudio API system including some features and small improvements to other parts. I am also acknowledged in the Nerfstudio SIGGRAPH paper.
+Since Jan 2023 I have made contributions to the Nerfstudio API system including some features and small improvements to other parts. I am also acknowledged in the Nerfstudio SIGGRAPH paper and my Blender add-on is mentioned during presentations of Nerfstudio.
 
 ## Nerfstudio Blender VFX Add-on
 
