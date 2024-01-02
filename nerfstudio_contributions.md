@@ -33,6 +33,7 @@ I also have a blog post style walkthrough of making it.
 -->
 
 <br>
+
 ## 🥽 VR Video Rendering
 
 I implemented VR180 and VR360 (Omnidirectional stereo) render cameras to support VR video rendering. This allows users to render stereo equirectangular videos to view on VR headsets or post on YouTube. Documentation is [here](https://docs.nerf.studio/quickstart/custom_dataset.html#render-vr-video).
@@ -41,7 +42,7 @@ The Blender add-on is used to create the final render path and to correctly scal
 <iframe width="560" height="315" src="https://www.youtube.com/embed/ZOQMIXvgLtw?si=ujYTHYzeoT5vVUIT" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 ## Additional contributions
-I have also made smaller contributions towards Nerfstudio including towards [Viser](https://viser.studio/), the new 3D viewer that Nerfstudio uses, as well as adding Nerfstudio support for [Instruct-GS2GS](https://docs.nerf.studio/nerfology/methods/igs2gs.html).
+I have also made smaller contributions towards Nerfstudio including towards [Viser](https://viser.studio/), the new 3D viewer that Nerfstudio uses, as well as adding Nerfstudio support for [Instruct-GS2GS](https://docs.nerf.studio/nerfology/methods/igs2gs.html). I was part of a group that implemented equirectangular image/video input support for Nerfstudio datasets. 
 
 
 <ul class="actions">

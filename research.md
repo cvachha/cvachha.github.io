@@ -136,9 +136,9 @@ menu-show: true
 					<h3>Dreamcrafter (In Progress)</h3>
 				</header>
 				<p style="font-size: 12pt">In my current 5th-year masters program (1 year graduate program after 4 year undergrad degree), I am attempting to build the initial concept of the VR environment creation system I proposed in 2022. For my VR/AR class I worked with a team to implement two prototype systems which leverage NeRFs, 3DGS, and Stable Diffusion to create a VR interface for 3D photo-realistic content creation. This includes a system to edit existing NeRF/GS scenes through voice, hand controls, and existing diffusion models (such as Instruct-Pix2Pix). We also have a system leveraging ControlNet to create 2D mockups of scenes based on 3D primitive objects. I am currently developing the complete system with intelligent natural language region selection and additional features. We are working towards a research publication for 2024.</p>
-				<!--<ul class="actions">
+				<ul class="actions">
 					<li><a href="dreamcrafter_progress.html" class="button">Learn More</a></li>
-				</ul>-->
+				</ul>
 			</div>
 		</div>
 	</section>
