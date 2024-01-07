@@ -127,7 +127,7 @@ menu-show: true
 		<p></p>
 	<section id="two" class="spotlights">
 	<section>
-		<a href="https://docs.nerf.studio" class="image">
+		<a href="dreamcrafter_progress.html" class="image">
 			<img src="{% link assets/images/dreamcrafter_progress_teaser.png %}" alt="" data-position="center center" style="border-radius: 20px" />
 		</a>
 		<div class="content">
