@@ -54,6 +54,7 @@ show-title: true
 					<h3>Gallery</h3>
 				</header>
 				<p>3D renders, 3D models, 3D Captures
+				<br>
 				Will be updated soon with NeRFs taken over the last year.</p>
 				<ul class="actions">
 					<li><a href="gallery.html" class="button">View more</a></li>
