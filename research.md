@@ -64,7 +64,9 @@ menu-show: true
 				<br>
 				- Shown in CVPR 2023 Art Gallery
 				<br>
-				- Abstract on Arxiv <a href="https://arxiv.org/abs/2401.08633">here</a></p>
+				- Abstract on Arxiv <a href="https://arxiv.org/abs/2401.08633">here</a>
+				<br>
+				- View more renders <a href="nerfstudio_vfx_reel.html">here</a></p>
 				<ul class="actions">
 					<li><a href="https://docs.nerf.studio/extensions/blender_addon.html" class="button">Documentation</a></li>
 					<li><a href="https://www.youtube.com/watch?v=A7La8tWp_0I" class="button">Video</a></li>
