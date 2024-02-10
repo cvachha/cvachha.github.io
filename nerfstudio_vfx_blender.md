@@ -38,6 +38,7 @@ I also have a blog post style walkthrough of making it.
 	<li><a href="nerfstudio_vfx_blender.html" class="button small">Read More</a></li>
 </ul>
 
+Some of my renders were shown in an educational video on NeRFs [here](https://www.youtube.com/watch?v=1uoaRGvy3Rc).
 
 
 <ul class="actions">

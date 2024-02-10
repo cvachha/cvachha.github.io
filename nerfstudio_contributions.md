@@ -13,6 +13,10 @@ Since Jan 2023 I have made contributions to the Nerfstudio API system including 
 
 ## Nerfstudio Blender VFX Add-on
 
+<ul class="actions">
+	<li><a href="nerfstudio_vfx_reel.html" class="button">View NeRF VFX Renders</a></li>
+</ul>
+
 <iframe width="560" height="315" src="https://www.youtube.com/embed/A7La8tWp_0I?si=uChvOIFJ7WniBMTY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 I created a Blender add-on that allows NeRFs to be used in visual effects. This enables a pipeline for integrating NeRFs into traditional compositing VFX pipelines using Nerfstudio. This approach leverages Blender, a widely used open-source 3D creation software, to align camera paths and composite NeRF renders with meshes and other NeRFs, allowing for seamless integration of NeRFs into traditional VFX pipelines. It allows for more controlled camera trajectories of photorealistic scenes, compositing meshes and other environmental effects with NeRFs, and compositing multiple NeRFs in a single scene. This approach of generating NeRF aligned camera paths can be adapted to other 3D tool sets and workflows, enabling a more seamless integration of NeRFs into visual effects and film production. This also supports Nerfstudio gaussian splatting as well.
@@ -24,6 +28,8 @@ The exported mesh or point cloud representation is imported into Blender and a r
 I created documentation for it [here](https://docs.nerf.studio/extensions/blender_addon.html) and a tutorial video demonstrating basic examples using the add-on as well as a breakdown of other effects that can be done with it.
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/vDhj6j7kfWM?si=zmlFcZoxZipyTEqs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<br>
+I have also written a technical write-up on Arxiv [here](https://arxiv.org/abs/2401.08633).
 
 <!--
 I also have a blog post style walkthrough of making it.
@@ -31,9 +37,6 @@ I also have a blog post style walkthrough of making it.
 	<li><a href="nerfstudio_vfx_blender.html" class="button small">Read More</a></li>
 </ul>
 -->
-
-<br>
-
 ## 🥽 VR Video Rendering
 
 I implemented VR180 and VR360 (Omnidirectional stereo) render cameras to support VR video rendering. This allows users to render stereo equirectangular videos to view on VR headsets or post on YouTube. Documentation is [here](https://docs.nerf.studio/quickstart/custom_dataset.html#render-vr-video).
