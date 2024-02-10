@@ -27,14 +27,14 @@ show_tile: false
 <video id="v0" width=700px controls>
 	<source src="assets/videos/ns_vfx_elevator_composites.mp4" type="video/mp4" />
 </video>
-<center>
+</center>
 
 ### Breakdown
 <center>
 <video id="v0" width=700px controls>
 	<source src="assets/videos/ns_vfx_breakdown.mp4" type="video/mp4" />
 </video>
-<center>
+</center>
 
 
 <ul class="actions">
