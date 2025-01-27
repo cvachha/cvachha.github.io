@@ -2,7 +2,7 @@
 layout: home
 title: Home
 landing-title: 'Cyrus Vachha'
-description: "description here 2"
+description: "CS PhD Student at Princeton University"
 image: assets/images/background_surface_deskV2_8.png
 #background_surface_deskV2_8
 author: null

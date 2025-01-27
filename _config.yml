@@ -1,8 +1,8 @@
 # site settings
 title: Cyrus Vachha
 subtitle: 
-email: cvachha(at)berkeley.edu
-description: CS Student, VR Researcher @ UC Berkeley
+email: cvachha549(at)gmail.com
+description: CS PhD Student, VR Researcher @ Princeton University | Prev. EECS @ UC Berkeley
 baseurl: "" #"cvachha.github.io" # the subpath of your site, e.g. /blog original: /forty-jekyll-theme
 url: # cvachha.github.io # the base hostname & protocol for your site
 author:
@@ -29,7 +29,7 @@ socials:
   youtube: https://www.youtube.com/channel/UCil6yg2M9cTtPu0DQoGs_bg
   Instagram:
   LinkedIn: https://www.linkedin.com/in/cyrus-vachha-35765a7a/
-  Twitter: 
+  Twitter: https://x.com/cvachha
   Slack:
 
 # build settings
