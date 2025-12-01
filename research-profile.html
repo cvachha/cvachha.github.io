@@ -1,0 +1,580 @@
+<!DOCTYPE HTML>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <title>Cyrus Vachha</title>
+
+    <meta name="author" content="Cyrus Vachha">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="../research_profile_files/research_stylesheet.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,700;1,400&display=block" rel="stylesheet">
+    <script>
+      // Pre-load theme to prevent flicker
+      (function() {
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+        // Prevent white flash / text flicker
+        if (savedTheme === 'dark') {
+           document.documentElement.style.backgroundColor = '#262626';
+           document.documentElement.style.color = '#D4D4D4';
+        }
+      })();
+    </script>
+  </head>
+
+  <body>
+    <table style="width:100%;max-width:1100px;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+      <tr style="padding:0px">
+        <td style="padding:0px;padding-left:0;">
+          
+          <div class="header-controls">
+             <a href="https://cvachha.github.io/" class="nav-btn">&larr; Back to Home</a>
+             <button id="theme-toggle" class="nav-btn" onclick="toggleTheme()">&#9788;</button>
+          </div>
+
+          <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+            <tr style="padding:0px">
+              <td style="padding:2.5%;width:25%;max-width:25%;padding-left:0;">
+                <div class="profile-container" id="profile-wrapper">
+                  <div id="splat-container" style="display: none; width: 100%; aspect-ratio: 1/1; position: relative;"></div>
+                  <img id="profile-photo" style="object-fit: cover; cursor: pointer; display: block; width: 100%;" alt="profile photo" src="../research_profile_files/self_profile_institute-2_square.jpg" class="hoverZoomLink" onclick="loadSplat()">
+                  <div class="click-splat-msg" id="splat-msg">click to view gsplats</div>
+                </div>
+                <script type="importmap">
+                  {
+                    "imports": {
+                      "three": "https://cdnjs.cloudflare.com/ajax/libs/three.js/0.178.0/three.module.js",
+                      "@sparkjsdev/spark": "https://sparkjs.dev/releases/spark/0.1.10/spark.module.js"
+                    }
+                  }
+                </script>
+                <script type="module">
+                  import * as THREE from 'three';
+                  import { SplatMesh } from '@sparkjsdev/spark';
+
+                  window.loadSplat = async function() {
+                    const img = document.getElementById('profile-photo');
+                    const container = document.getElementById('splat-container');
+                    const msg = document.getElementById('splat-msg');
+                    
+                    if (!container || !img) return;
+
+                    img.style.display = 'none';
+                    msg.style.display = 'none';
+                    container.style.display = 'block';
+
+                    // Initialize Three.js scene
+                    const scene = new THREE.Scene();
+                    // Match camera fov to example but adapt aspect ratio
+                    const camera = new THREE.PerspectiveCamera(50, container.clientWidth / container.clientHeight, 0.1, 1000);
+                    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+                    
+                    renderer.setSize(container.clientWidth, container.clientHeight);
+                    container.appendChild(renderer.domElement);
+
+                    // No OrbitControls in standard THREE build from cdnjs without import map magic or extra script
+                    // We will implement a simple auto-rotate for now as in the example, 
+                    // or interactive rotation if possible. 
+                    // The user's example just rotated. Let's start with that to ensure it works.
+
+                    // Lighting (optional for splats but good practice)
+                    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+                    scene.add(ambientLight);
+                    
+                    // Position camera
+                    camera.position.z = 3; 
+
+                    const splatUrls = [
+                      '../research_profile_files/gs_Self_Nerf_VR_Berkeley_SDH_cropped.splat',
+                      '../research_profile_files/self_nerf_profile_1.splat', 
+                      // Add more splat URLs here
+                    ];
+                    let currentSplatIndex = 0;
+                    let currentSplatMesh = null;
+
+                    async function loadSplatAtIndex(index) {
+                      if (currentSplatMesh) {
+                         scene.remove(currentSplatMesh);
+                         // Dispose geometry/material if necessary, though SplatMesh handles some cleanup
+                         currentSplatMesh.dispose(); 
+                         currentSplatMesh = null;
+                      }
+
+                      const url = splatUrls[index % splatUrls.length];
+                      
+                      try {
+                        const splat = new SplatMesh({ url: url });
+                        // Adjustments (apply to all or customize per index)
+                        splat.quaternion.set(0, 0, 1, 0);
+                        splat.position.set(0, 0, 0);
+                        
+                        scene.add(splat);
+                        currentSplatMesh = splat;
+                      } catch (e) {
+                        console.error(`Failed to load splat at ${url}:`, e);
+                      }
+                    }
+                    
+                    // Initial load
+                    await loadSplatAtIndex(currentSplatIndex);
+
+                    // Click handler to cycle
+                    container.addEventListener('click', () => {
+                       currentSplatIndex = (currentSplatIndex + 1) % splatUrls.length;
+                       loadSplatAtIndex(currentSplatIndex);
+                    });
+
+                    let isHovering = false;
+                    let mouseX = 0;
+                    let mouseY = 0;
+
+                    container.addEventListener('mouseenter', () => { isHovering = true; });
+                    container.addEventListener('mouseleave', () => { isHovering = false; });
+                    container.addEventListener('mousemove', (event) => {
+                        const rect = container.getBoundingClientRect();
+                        // Normalize mouse position from -1 to 1
+                        mouseX = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+                        mouseY = ((event.clientY - rect.top) / rect.height) * 2 - 1;
+                    });
+
+                    renderer.setAnimationLoop(function animate(time) {
+                       renderer.render(scene, camera);
+                       
+                       if (!currentSplatMesh) return;
+
+                       if (isHovering) {
+                          // Interactive control
+                          const hoverTargetY = mouseX * 1.0;
+                          const hoverTargetX = mouseY * 0.5;
+                          
+                          currentSplatMesh.rotation.y += (hoverTargetY - currentSplatMesh.rotation.y) * 0.1;
+                          currentSplatMesh.rotation.x += (hoverTargetX - currentSplatMesh.rotation.x) * 0.1;
+                       } else {
+                          // Auto orbit
+                          const autoTargetY = Math.sin(time * 0.001) * 0.5;
+                          const autoTargetX = Math.cos(time * 0.001) * 0.1;
+                          
+                          currentSplatMesh.rotation.y += (autoTargetY - currentSplatMesh.rotation.y) * 0.05;
+                          currentSplatMesh.rotation.x += (autoTargetX - currentSplatMesh.rotation.x) * 0.05;
+                       }
+                       currentSplatMesh.rotation.z = Math.PI; 
+                    });
+                  };
+                </script>
+              </td>
+              <td class="bio-text" style="padding:2.5%;width:75%;vertical-align:top">
+                <p class="name" style="text-align: left;">
+                  Cyrus Vachha
+                </p>
+                <p>
+                  I'm a 2nd year PhD student at Princeton University researching VR/AR, HCI, and Computer Graphics advised by <a href="https://parastooabtahi.com/" target="_blank">Parastoo Abtahi</a>. I completed my undergrad and masters at UC Berkeley where I worked on projects related to VR/AR and interfaces for generative models and neural rendering, where I was advised by <a href="https://people.eecs.berkeley.edu/~bjoern/" target="_blank">Björn Hartmann</a>. In the past, I've contributed to open source projects including Nerfstudio and I've interned at Microsoft Research.
+                </p>
+                <p style="text-align:left">
+                  <a href="mailto:cvachha@princeton.edu">Email</a> &nbsp;/&nbsp;
+                  <a href="../research_profile_files/Cyrus Vachha-Resume Fall 2025.pdf" target="_blank">CV</a> &nbsp;/&nbsp;
+                  <a href="https://www.linkedin.com/in/cyrus-vachha-35765a7a/" target="_blank">LinkedIn</a> &nbsp;/&nbsp;
+                  <a href="https://x.com/cvachha" target="_blank">Twitter</a> &nbsp;/&nbsp;
+                  <a href="https://www.youtube.com/@cyrusvachha" target="_blank">YouTube</a>
+                </p>
+              </td>
+            </tr>
+          </tbody></table>
+          <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+              <tr>
+              <td style="padding:16px;width:100%;vertical-align:middle;padding-top:10px;padding-left:0;">
+                <h2>Research</h2>
+                <p>
+                  I'm interested in Virtual Reality/Augmented Reality, human computer interaction, computer graphics, and computer vision. Most of my work is at the intersections of graphics and HCI including creativity tools. More recently, I've been working on interfaces and systems combining radiance fields and generative models for world building or learning and perceiving a real-world space.
+                </p>
+              </td>
+            </tr>
+          </tbody></table>
+          <table style="width:100%;border:0px;border-spacing:0px 10px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+
+    <tr onmouseout="dreamcrafter_stop()" onmouseover="dreamcrafter_start()">
+      <td style="padding:20px;width:20%;vertical-align:top;padding-left:0;padding-top:25px">
+        <div class="one">
+          <div class="two" id='dreamcrafter_image'>
+					  <img src='../research_profile_files/dreamcrafter_frame.png' width=100%>
+					</div>
+          <img src='../research_profile_files/dreamcrafter_frame.png' width=100%>
+        </div>
+        <script type="text/javascript">
+          function dreamcrafter_start() {
+            document.getElementById('dreamcrafter_image').style.opacity = "1";
+          }
+
+          function dreamcrafter_stop() {
+            document.getElementById('dreamcrafter_image').style.opacity = "0";
+          }
+          dreamcrafter_stop()
+        </script>
+      </td>
+      <td class="paper-text" style="padding:20px;width:80%;vertical-align:top">
+        <a href="https://dream-crafter.github.io/" target="_blank">
+          <span class="papertitle">Dreamcrafter: Immersive Editing of 3D Radiance Fields Through Flexible, Generative Inputs and Outputs
+          </span>
+        </a>
+        <br>
+        <strong>Cyrus Vachha</strong>,
+        <a href="https://www.linkedin.com/in/yixiao-kang" target="_blank">Yixiao Kang</a>,
+        <a href="https://www.zachdive.com/" target="_blank">Zachary Dive</a>,
+        <a href="https://www.linkedin.com/in/ashwatc" target="_blank">Ashwat Chidambaram</a>,
+        <a href="https://www.anikgupta.me/" target="_blank">Anik Gupta</a>,
+        <a href="https://eunicemjun.com/" target="_blank">Eunice Jun</a>,
+        <a href="https://people.eecs.berkeley.edu/~bjoern/" target="_blank">Björn Hartmann</a>
+        <br>
+        <em>CHI, 2025 (Paper) ; UIST 2024 (Poster)
+        <br>
+        <div class="paper-links">
+        <a href="https://dream-crafter.github.io/" target="_blank">project page</a>
+        /
+        <a href="https://dl.acm.org/doi/10.1145/3706598.3714312" target="_blank">paper</a>
+        /
+        <a href="https://www2.eecs.berkeley.edu/Pubs/TechRpts/2024/EECS-2024-124.html" target="_blank">master's thesis</a>
+        </div>
+
+        <p></p>
+        <p>
+          A VR-based world building tool for editing radiance field scenes using generative AI in an immersive, real-time interface through a modular architecture that combines direct manipulation with different levels of abstraction and controllability interfacing with generative image and 3D models, offering workflows for creating and modifying 3D Gaussian Splatting scenes and staging scenes for video generative models in real-time using proxy representations.        </p>
+      </td>
+    </tr>
+	
+    <tr onmouseout="igs2gs_stop()" onmouseover="igs2gs_start()">
+      <td style="padding:20px;width:20%;vertical-align:top;padding-left:0;padding-top:25px">
+        <div class="one">
+          <div class="two" id='igs2gs_image'>
+					  <img src='../research_profile_files/igs2gs_face.gif' width=100%>
+					</div>
+          <img src='../research_profile_files/igs2gs_face.gif' width=100%>
+        </div>
+        <script type="text/javascript">
+          function igs2gs_start() {
+            document.getElementById('igs2gs_image').style.opacity = "1";
+          }
+
+          function igs2gs_stop() {
+            document.getElementById('igs2gs_image').style.opacity = "0";
+          }
+          igs2gs_stop()
+        </script>
+      </td>
+      <td class="paper-text" style="padding:20px;width:80%;vertical-align:top">
+        <a href="https://instruct-gs2gs.github.io/" target="_blank">
+          <span class="papertitle">Instruct-GS2GS: Editing 3D Gaussian Splatting Scenes with Instructions
+          </span>
+        </a>
+        <br>
+        <strong>Cyrus Vachha</strong>,
+        <a href="https://www.ayaanzhaque.me/" target="_blank">Ayaan Haque</a>
+        <br>
+      <em>2024</em>
+        <br>
+        <div class="paper-links">
+        <a href="https://instruct-gs2gs.github.io/" target="_blank">project page</a>
+        /
+        <a href="https://github.com/cvachha/instruct-gs2gs" target="_blank">code</a>
+        </div>
+        <p></p>
+        <p>
+          We propose a method for editing 3DGS scenes with text-instructions in a method similar to Instruct-NeRF2NeRF. Given a 3DGS scene of a scene and the collection of images used to reconstruct it, our method uses an image-conditioned diffusion model (InstructPix2Pix) to iteratively edit the input images while optimizing the underlying scene, resulting in an optimized 3D scene that respects the edit instruction. We demonstrate that our proposed method is able to accomplish more realistic, targeted edits than prior work.
+        </p>
+      </td>
+    </tr>
+
+    <tr onmouseout="nsvfx_stop()" onmouseover="nsvfx_start()">
+      <td style="padding:20px;width:20%;vertical-align:top;padding-left:0;padding-top:25px">
+        <div class="one">
+          <div class="two" id='nsvfx_image'>
+					  <img src='../research_profile_files/nerfstudio_teaser_1.gif' width=100%>
+					</div>
+          <img src='../research_profile_files/nerfstudio_teaser_1.gif' width=100%>
+        </div>
+        <script type="text/javascript">
+          function nsvfx_start() {
+            document.getElementById('nsvfx_image').style.opacity = "1";
+          }
+
+          function nsvfx_stop() {
+            document.getElementById('nsvfx_image').style.opacity = "0";
+          }
+          nsvfx_stop()
+        </script>
+      </td>
+      <td class="paper-text" style="padding:20px;width:80%;vertical-align:top">
+        <a href="https://arxiv.org/abs/2401.08633" target="_blank">
+          <span class="papertitle">Creating Visual Effects with Neural Radiance Fields
+          </span>
+        </a>
+        <br>
+        <strong>Cyrus Vachha</strong>
+        <br>
+        <em>arXiv 2023 (abstract)</em>
+        <br>
+        <div class="paper-links">
+        <a href="https://arxiv.org/abs/2401.08633" target="_blank">paper</a>
+        /
+        <a href="https://docs.nerf.studio/extensions/blender_addon.html" target="_blank">documentation</a>
+        /
+        <a href="https://www.youtube.com/watch?v=A7La8tWp_0I" target="_blank">video</a>
+
+
+        </div>
+        <p></p>
+        <p>
+          We present a pipeline for integrating NeRFs into traditional compositing VFX pipelines using Nerfstudio, an open-source framework for training and rendering NeRFs. Our approach involves using Blender  to align camera paths and composite NeRF renders with meshes and other NeRFs, allowing for seamless integration of NeRFs into traditional VFX pipelines. Shown in the CVPR 2023 Art Gallery. View more NeRF VFX renders <a href="https://cvachha.github.io/nerfstudio_vfx_reel.html" target="_blank">(here)</a>     </td>
+    </tr>
+    
+    <tr onmouseout="streamfunnel_stop()" onmouseover="streamfunnel_start()">
+      <td style="padding:20px;width:20%;vertical-align:top;padding-left:0;padding-top:25px">
+        <div class="one">
+          <div class="two" id='streamfunnel_image'>
+					  <img src='../research_profile_files/streamfunnel_teaser.png' width=100%>
+					</div>
+          <img src='../research_profile_files/streamfunnel_teaser.png' width=100%>
+        </div>
+        <script type="text/javascript">
+          function streamfunnel_start() {
+            document.getElementById('streamfunnel_image').style.opacity = "1";
+          }
+
+          function streamfunnel_stop() {
+            document.getElementById('streamfunnel_image').style.opacity = "0";
+          }
+          streamfunnel_stop()
+        </script>
+      </td>
+      <td class="paper-text" style="padding:20px;width:80%;vertical-align:top">
+        <a href="https://arxiv.org/abs/2311.14930" target="_blank">
+          <span class="papertitle">StreamFunnel: Facilitating Communication Between a VR Streamer and Many Spectators
+          </span>
+        </a>
+        <br>
+        <a href="https://www.haohualyu.com/" target="_blank">Haohua Lyu</a>,
+        <strong>Cyrus Vachha</strong>,
+        <a href="https://www.linkedin.com/in/daisychen532" target="_blank">Qianyi Chen</a>,
+        <a href="https://www.tkbala.com/" target="_blank">Balasaravanan Thoravi Kumaravel</a>,
+        <a href="https://people.eecs.berkeley.edu/~bjoern/" target="_blank">Björn Hartmann</a>
+        <br>
+        <em>arXiv, 2023</em>
+        <br>
+        <div class="paper-links">
+       
+        <a href="https://arxiv.org/abs/2311.14930" target="_blank">paper</a>
+        </div>
+        <p></p>
+        <p>
+          In this work, we identify problems associated with interaction carried out with large groups of users. To address this, we introduce an additional user role: the co-host. They mediate communications between the VR user and many spectators. To facilitate this mediation, we present StreamFunnel, which allows the co-host to be part of the VR application's space and interact with it. 
+        </p>
+      </td>
+    </tr>
+
+
+    <tr onmouseout="webtransceivr_stop()" onmouseover="webtransceivr_start()">
+      <td style="padding:20px;width:20%;vertical-align:top;padding-left:0;padding-top:25px">
+        <div class="one">
+          <div class="two" id='webtransceivr_image'>
+					  <img src='../research_profile_files/webtransceivr_teaser_img.png' width=100%>
+					</div>
+          <img src='../research_profile_files/webtransceivr_teaser_img.png' width=100%>
+        </div>
+        <script type="text/javascript">
+          function webtransceivr_start() {
+            document.getElementById('webtransceivr_image').style.opacity = "1";
+          }
+
+          function webtransceivr_stop() {
+            document.getElementById('webtransceivr_image').style.opacity = "0";
+          }
+          webtransceivr_stop()
+        </script>
+      </td>
+      <td class="paper-text" style="padding:20px;width:80%;vertical-align:top">
+        <a href="https://dl.acm.org/doi/abs/10.1145/3491101.3519816" target="_blank">
+          <span class="papertitle">WebTransceiVR: Asymmetrical Communication Between Multiple VR and Non-VR Users Online
+          </span>
+        </a>
+        <br>
+        <a href="https://www.haohualyu.com/" target="_blank">Haohua Lyu</a>,
+        <strong>Cyrus Vachha</strong>,
+        <a href="https://www.linkedin.com/in/daisychen532" target="_blank">Qianyi Chen</a>,
+        <a href="https://www.linkedin.com/in/odysseus-pyrinis-91503791" target="_blank">Odysseus Pyrinis</a>,
+        <a href="https://www.linkedin.com/in/avery-liou-0a0734180" target="_blank">Avery Liou</a>,
+        <a href="https://www.tkbala.com/" target="_blank">Balasaravanan Thoravi Kumaravel</a>,
+        <a href="https://people.eecs.berkeley.edu/~bjoern/" target="_blank">Björn Hartmann</a>
+        <br>
+        <em>CHI, 2022 (LBW)</em>
+        <br>
+        <div class="paper-links">
+        <a href="https://dl.acm.org/doi/abs/10.1145/3491101.3519816" target="_blank">paper</a>
+        /
+        <a href="https://www.youtube.com/watch?v=UQTCGifpjm8" target="_blank">video</a>
+
+        </div>
+        <p></p>
+        <p>
+          We propose WebTransceiVR, an asymmetric collaboration toolkit which when integrated into a VR application, allows multiple non-VR users to share the virtual space of the VR user. It allows external users to enter and be part of the VR application's space through standard web browsers on mobile and computers. WebTransceiVR also includes a cloud-based streaming solution that enables many passive spectators to view the scene through any of the active cameras. We conduct informal user testing to gain additional insights for future work.     </p>
+      </td>
+    </tr>
+
+
+    
+
+    </tbody></table>
+
+          
+					<table style="width:100%; margin:0 auto; border:0; border-spacing:0; padding:16px;"><tbody>
+            <tr>
+              <td>
+                <h2>Extra</h2>
+              </td>
+            </tr>
+
+            
+          </tbody></table>
+          <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+            
+
+            <tr onmouseout="splatxr_stop()" onmouseover="splatxr_start()">
+              <td style="padding:20px;width:20%;vertical-align:top;padding-left:0;padding-top:25px">
+                <div class="one">
+                  <div class="two" id='splatxr_image'>
+                    <img src='../research_profile_files/splatxr_desk_thumbnail.png' width=100%>
+                  </div>
+                  <img src='../research_profile_files/splatxr_desk_thumbnail.png' width=100%>
+                </div>
+                <script type="text/javascript">
+                  function splatxr_start() {
+                    document.getElementById('splatxr_image').style.opacity = "1";
+                  }
+        
+                  function splatxr_stop() {
+                    document.getElementById('splatxr_image').style.opacity = "0";
+                  }
+                  splatxr_stop()
+                </script>
+              </td>
+              <td class="paper-text" style="padding:20px;width:80%;vertical-align:top">
+                
+                  <span class="papertitle">SplatXR: Unity toolkit for 3D Gaussian Splatting XR Applications
+
+                  </span>
+                
+                  <br>
+                  <em>[In progress, expected release early 2026. Contact for earlier access.] </em>
+                  <br>
+                
+                <p></p>
+                <p>
+                  Unity toolkit for on-device 3D Gaussian Splatting rendering and interactions design for AR and VR applications compatible with standalone devices including Meta Quest 3 and Apple Vision Pro. We introduce mesh-augmented splats to enable physics and lighting interactions with splats by auto-generating a mesh from the input splat.
+
+                </td>
+            </tr>
+
+            <tr>
+              <td style="padding:20px;width:20%;vertical-align:top;padding-left:0;padding-top:25px">
+                <div class="one">
+                  <video width="100%" height="100%" muted autoplay loop playsinline>
+                    <source src="../research_profile_files/nerf_splat_dataset_1min_comp1.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                  </video>
+                </div>
+              </td>
+              <td class="paper-text" style="padding:20px;width:80%;vertical-align:top">
+                
+                  <span class="papertitle">University Datasets for 3DGS and NeRFs 
+
+                  </span>
+                
+                  <br>
+                  <em>[In progress, expected release early 2026. Contact for earlier access.] </em>
+                  <br>
+                
+                <p></p>
+                <p>
+                  Datasets for radiance field training (3DGS and NeRFs) of dozens of captures primarily of buildings of UC Berkeley and Princeton University, including exteriors and interiors. These datasets are composed of captures of videos (iPhone), images (captured via Sony a7iii), and fisheye images (Insta360 X4 and Samsung Gear360). Online VR splat gallery coming soon.
+
+                </td>
+            </tr>
+            
+            <tr onmouseout="nscontributions_stop()" onmouseover="nscontributions_start()">
+              <td style="padding:20px;width:20%;vertical-align:top;padding-left:0;padding-top:25px">
+                <div class="one">
+                  <div class="two" id='nscontributions_image'>
+                    <img src='../research_profile_files/nerfstudio_logo.gif' width=100%>
+                  </div>
+                  <img src='../research_profile_files/nerfstudio_logo.gif' width=100%>
+                </div>
+                <script type="text/javascript">
+                  function nscontributions_start() {
+                    document.getElementById('nscontributions_image').style.opacity = "1";
+                  }
+        
+                  function nscontributions_stop() {
+                    document.getElementById('nscontributions_image').style.opacity = "0";
+                  }
+                  nscontributions_stop()
+                </script>
+              </td>
+              <td class="paper-text" style="padding:20px;width:80%;vertical-align:top">
+                <a href="https://cvachha.github.io/nerfstudio_contributions.html" target="_blank">
+                  <span class="papertitle">Nerfstudio Contributions
+
+                  </span>
+                </a>
+                
+                <div class="paper-links">
+                <a href="https://cvachha.github.io/nerfstudio_contributions.html" target="_blank">read more</a>
+                </div>
+                <p></p>
+                <p>
+                  Since Jan 2023, I have been contributing features to the Nerfstudio system including the Blender VFX add-on and VR180/Omnidirectional (VR 360) video/image render outputs.
+
+                </td>
+            </tr>
+           
+            
+						
+            
+          </tbody></table>
+          <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+            <tr>
+              <td style="padding:0px">
+                <br>
+                <p style="text-align:right;font-size:small;">
+                  Website adapted from Jon Barron's <a href="https://github.com/jonbarron/jonbarron_website" target="_blank">source code</a>
+                </p>
+              </td>
+            </tr>
+          </tbody></table>
+        </td>
+      </tr>
+    </table>
+  <script>
+    function toggleTheme() {
+      const html = document.documentElement;
+      const currentTheme = html.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+      updateIcon(newTheme);
+    }
+
+    function updateIcon(theme) {
+      const btn = document.getElementById('theme-toggle');
+      if (theme === 'dark') {
+        btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>';
+      } else {
+        btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>';
+      }
+    }
+
+    // Initialize icon (theme is already set in head)
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    updateIcon(savedTheme);
+  </script>
+</body>
+</html>

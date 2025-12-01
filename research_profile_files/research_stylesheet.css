@@ -1,0 +1,275 @@
+/* JetBrains Mono is imported in index.html */
+
+:root {
+  --bg-color: #F5F5F5;
+  --text-color: #171717;
+  --link-color: #707070;
+  --link-hover-color: #171717;
+  --heading-color: #171717;
+  --highlight-bg: #ffffd0;
+}
+
+[data-theme="dark"] {
+  --bg-color: #262626;
+  --text-color: #D4D4D4;
+  --link-color: #A0A0A0;
+  --link-hover-color: #ffffff;
+  --heading-color: #D4D4D4;
+  --highlight-bg: #3c4043;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+a {
+  color: var(--link-color);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+a:focus,
+a:hover {
+  color: var(--link-hover-color);
+  text-decoration: underline;
+}
+
+body,
+td,
+th,
+tr,
+p,
+a {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 16px; /* Increased from 15px */
+  line-height: 1.6;
+}
+
+strong {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+h2 {
+  margin: 0;
+  font-weight: 700;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 26px; /* Increased from 24px */
+  color: var(--heading-color);
+  padding-bottom: 10px;
+}
+
+/* Bio Link Styling */
+.bio-text a {
+  color: #48637f; /* Bluish grey */
+}
+
+[data-theme="dark"] .bio-text a {
+  color: #A3B3C6; /* Light greyish blue */
+}
+.bio-text a:hover {
+  color: var(--link-hover-color);
+  text-decoration: underline;
+}
+.paper-text {
+  font-size: 12px; /* Authors smaller */
+  line-height: 1.5;
+}
+
+.paper-text p {
+  font-size: 14px; /* Description larger */
+}
+
+/* Light Mode Author Links */
+.paper-text a {
+  color: #404040;
+}
+
+/* Light Mode Paper Resource Links */
+.paper-links a {
+  color: #1b5e85; /* Even more bluish */
+}
+
+.paper-text em {
+    font-size: 15px; /* Venue larger */
+    font-style: italic;
+}
+
+[data-theme="dark"] .paper-text {
+    color: #ffffff; /* Brighter white for authors */
+}
+
+[data-theme="dark"] .paper-text a {
+    color: #ffffff; /* Brighter white for author links */
+}
+
+[data-theme="dark"] .paper-text p {
+    color: #D4D4D4; /* Keep description grey */
+}
+
+[data-theme="dark"] .paper-text p a {
+    color: #A0A0A0; /* Keep description links grey */
+}
+
+/* Ensure Author Links are Targeted correctly */
+[data-theme="dark"] .paper-text > a:not(.papertitle) {
+    color: #e0e0e0; /* Brighter but not pure white */
+}
+
+[data-theme="dark"] .paper-text strong {
+    color: #ffffff; /* Current author bold white */
+}
+
+/* Resource links (dark blueish grey) */
+[data-theme="dark"] .paper-links a {
+    color: #A3B3C6 !important;
+}
+[data-theme="dark"] .paper-links a:hover {
+    color: #ffffff !important;
+    text-decoration: underline;
+}
+
+.papertitle {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 19px; /* Title larger */
+  font-weight: 700;
+  color: var(--heading-color);
+}
+
+.name {
+  margin: 0;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 40px; /* Increased from 36px */
+  font-weight: 700;
+  color: var(--heading-color);
+}
+
+.one {
+  width: 260px;
+  height: 146px;
+  position: relative;
+}
+
+/* Thumbnail Expansion on Hover */
+.one img, .one video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.2s ease-in-out;
+  transform-origin: right top; /* Scale from top right */
+}
+
+.one:hover img, .one:hover video {
+  transform: scale(1.5);
+  z-index: 10;
+  position: relative;
+  box-shadow: none;
+}
+
+.two {
+  width: 260px;
+  height: 146px;
+  position: absolute;
+  transition: opacity .2s ease-in-out;
+  -moz-transition: opacity .2s ease-in-out;
+  -webkit-transition: opacity .2s ease-in-out;
+}
+
+.fade {
+  transition: opacity .2s ease-in-out;
+  -moz-transition: opacity .2s ease-in-out;
+  -webkit-transition: opacity .2s ease-in-out;
+}
+
+span.highlight {
+  background-color: var(--highlight-bg);
+}
+
+.colored-box {
+  color: black; /* Keep black for this specific box if it's light */
+  padding: 20px;
+  display: inline-block;
+  border-radius: 10px;
+}
+
+/* Header Buttons */
+.header-controls {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  width: 100%;
+  padding-top: 20px; /* Lower the buttons a bit */
+}
+
+.nav-btn {
+  background: transparent;
+  border: 1px solid #48637f; /* Bluish grey border */
+  color: #48637f; /* Bluish grey text */
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 14px;
+  font-family: 'JetBrains Mono', monospace;
+  display: inline-flex;
+  align-items: center;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.nav-btn:hover {
+  background: #48637f;
+  color: #fff;
+  border-color: #48637f; /* Ensure border color matches background on hover to avoid dark border effect */
+  text-decoration: none;
+}
+
+[data-theme="dark"] .nav-btn {
+  border: 1px solid #777;
+  color: #bbb;
+}
+
+[data-theme="dark"] .nav-btn:hover {
+  background: #777;
+  border-color: #777; /* Ensure border color matches background on hover */
+}
+
+/* Profile Photo Hover Effect */
+.profile-container {
+  position: relative;
+  display: inline-block;
+  /* Removed border-radius and overflow here to allow text below */
+  text-align: left;
+  width: 100%;
+}
+
+.profile-container img {
+  border-radius: 0; 
+  display: block;
+  margin: 0; /* Align left */
+  transition: opacity 0.3s;
+  width: 100%;
+  max-width: 100%; /* Allow to fill column to align bottom with text */
+}
+
+.click-splat-msg {
+  display: block;
+  margin-top: 8px;
+  font-size: 12px;
+  color: var(--text-color);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  text-align: center;
+  width: 100%;
+}
+
+.profile-container:hover .click-splat-msg {
+  opacity: 1;
+}
+
+
+/* Override bgcolor attribute in dark mode */
+tr[bgcolor="#ffffd0"] {
+  background-color: var(--highlight-bg) !important;
+}
