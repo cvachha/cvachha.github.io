@@ -121,18 +121,67 @@
                     // Initial load
                     await loadSplatAtIndex(currentSplatIndex);
 
+                    function resetToImage() {
+                      if (!currentSplatMesh) return; // Already reset
+                      renderer.setAnimationLoop(null);
+                      container.style.display = 'none';
+                      img.style.display = 'block';
+                      msg.style.display = 'block';
+                      container.innerHTML = ''; // Cleanup renderer
+                      currentSplatMesh = null;
+                      currentSplatIndex = 0;
+                    }
+
                     // Click handler to cycle
                     container.addEventListener('click', () => {
-                       currentSplatIndex = (currentSplatIndex + 1) % splatUrls.length;
+                       currentSplatIndex++;
+                       if (currentSplatIndex >= splatUrls.length) {
+                           resetToImage();
+                           return;
+                       }
                        loadSplatAtIndex(currentSplatIndex);
                     });
 
                     let isHovering = false;
                     let mouseX = 0;
                     let mouseY = 0;
+                    let resetTimer = null;
 
-                    container.addEventListener('mouseenter', () => { isHovering = true; });
-                    container.addEventListener('mouseleave', () => { isHovering = false; });
+                    function clearResetTimer() {
+                        if (resetTimer) {
+                            clearTimeout(resetTimer);
+                            resetTimer = null;
+                        }
+                    }
+
+                    container.addEventListener('mouseenter', () => { 
+                        isHovering = true;
+                        clearResetTimer(); // Cancel reset if we re-enter
+                    });
+                    
+                    container.addEventListener('mouseleave', () => { 
+                        isHovering = false; 
+                        // Start 30 second timer to reset
+                        clearResetTimer();
+                        resetTimer = setTimeout(() => {
+                            resetToImage();
+                        }, 30000);
+                    });
+                    
+                    // Check for scroll/visibility
+                    window.addEventListener('scroll', () => {
+                        const rect = container.getBoundingClientRect();
+                        const isVisible = (
+                            rect.top >= -rect.height &&
+                            rect.bottom <= (window.innerHeight + rect.height)
+                        );
+                        if (!isVisible && currentSplatMesh) {
+                            // If scrolled away, reset immediately regardless of timer
+                            clearResetTimer();
+                            resetToImage();
+                        }
+                    });
+                    
                     container.addEventListener('mousemove', (event) => {
                         const rect = container.getBoundingClientRect();
                         // Normalize mouse position from -1 to 1
@@ -170,7 +219,7 @@
                   Cyrus Vachha
                 </p>
                 <p>
-                  I'm a 2nd year PhD student at Princeton University researching VR/AR, HCI, and Computer Graphics advised by <a href="https://parastooabtahi.com/" target="_blank">Parastoo Abtahi</a>. I completed my undergrad and masters at UC Berkeley where I worked on projects related to VR/AR and interfaces for generative models and neural rendering, where I was advised by <a href="https://people.eecs.berkeley.edu/~bjoern/" target="_blank">Björn Hartmann</a>. In the past, I've contributed to open source projects including Nerfstudio and I've interned at Microsoft Research.
+                  Hi, I'm a 2nd year PhD student at Princeton University researching VR/AR, HCI, and Computer Graphics advised by <a href="https://parastooabtahi.com/" target="_blank">Parastoo Abtahi</a>. I completed my undergrad and masters at UC Berkeley where I worked on projects related to VR/AR and interfaces for generative models and neural rendering, where I was advised by <a href="https://people.eecs.berkeley.edu/~bjoern/" target="_blank">Björn Hartmann</a>. In the past, I've contributed to open source projects including Nerfstudio and I've interned at Microsoft Research.
                 </p>
                 <p style="text-align:left">
                   <a href="mailto:cvachha@princeton.edu">Email</a> &nbsp;/&nbsp;
@@ -275,6 +324,8 @@
         <br>
         <div class="paper-links">
         <a href="https://instruct-gs2gs.github.io/" target="_blank">project page</a>
+        /
+        <a href="https://instruct-gs2gs.github.io/data/Instruct-GS2GS_2024.pdf" target="_blank">paper</a>
         /
         <a href="https://github.com/cvachha/instruct-gs2gs" target="_blank">code</a>
         </div>
