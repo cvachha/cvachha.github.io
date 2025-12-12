@@ -207,11 +207,11 @@ span.highlight {
   background: transparent;
   border: 1px solid #48637f; /* Bluish grey border */
   color: #48637f; /* Bluish grey text */
-  padding: 6px 12px;
+  padding: 8px 16px; /* Increased padding from 6px 12px */
   border-radius: 4px;
   cursor: pointer;
   text-decoration: none;
-  font-size: 14px;
+  font-size: 16px; /* Increased font size from 14px */
   font-family: 'JetBrains Mono', monospace;
   display: inline-flex;
   align-items: center;
@@ -272,4 +272,137 @@ span.highlight {
 /* Override bgcolor attribute in dark mode */
 tr[bgcolor="#ffffd0"] {
   background-color: var(--highlight-bg) !important;
+}
+
+/* Mobile Responsiveness */
+@media screen and (max-width: 768px) {
+  /* Global Layout */
+  body {
+    padding: 15px 10px;
+    width: auto !important;
+  }
+  
+  /* Flatten Tables */
+  table, tbody, tr, td {
+    display: block;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box;
+    height: auto !important;
+  }
+  
+  /* Reset Table Padding/Margins */
+  td {
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  
+  /* Header Controls */
+  .header-controls {
+    flex-wrap: wrap;
+    gap: 15px; /* Increased gap */
+    padding-top: 15px;
+    margin-bottom: 25px;
+  }
+  
+  /* Buttons on mobile */
+  .nav-btn {
+    padding: 10px 18px; /* Even larger tap targets */
+    font-size: 16px;
+  }
+
+  /* Profile Section */
+  .profile-container {
+    max-width: 280px;
+    margin: 0 auto 25px auto; /* Center profile image */
+  }
+  
+  .bio-text {
+    padding-bottom: 30px !important;
+  }
+  
+  .name {
+    text-align: center;
+    font-size: 28px;
+    margin-bottom: 15px;
+  }
+  
+  .bio-text p {
+    text-align: left;
+  }
+
+  /* Center social links */
+  .bio-text p:last-child {
+    text-align: center !important;
+    line-height: 2.2;
+    margin-top: 15px;
+  }
+  
+  /* Research Heading */
+  h2 {
+    font-size: 24px;
+    border-bottom: 1px solid var(--heading-color);
+    margin-bottom: 25px;
+    margin-top: 10px;
+  }
+
+  /* Project/Paper Items */
+  /* Image Container */
+  tr > td:first-child:not(.bio-text) {
+    margin-bottom: 15px;
+    text-align: center;
+  }
+  
+  /* Adjust the thumbnail container */
+  .one {
+    width: 100%;
+    max-width: 100%; /* Allow full width */
+    height: auto; /* Allow height to adjust naturally */
+    margin: 0 auto;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  
+  .one img, .one video {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    transform-origin: center center; /* Reset origin */
+    display: block;
+  }
+  
+  /* Disable Hover Effects on Mobile */
+  .one:hover img, .one:hover video {
+    transform: none;
+    z-index: auto;
+  }
+  
+  .two {
+    display: none !important; /* Hide overlay on mobile */
+  }
+  
+  /* Paper Text */
+  .paper-text {
+    padding-bottom: 40px !important;
+    border-bottom: 1px solid #333; /* Separator */
+    margin-bottom: 20px !important;
+    text-align: left !important;
+  }
+  
+  /* Light mode separator */
+  body:not([data-theme="dark"]) .paper-text {
+    border-bottom: 1px solid #ddd;
+  }
+  
+  /* Remove border from last item */
+  tr:last-child .paper-text {
+    border-bottom: none;
+  }
+  
+  /* Ensure profile photo doesn't get the border bottom if it shares class (it doesn't, but good to be safe) */
+  
+  /* Extra adjustments for text readability */
+  p, a, li {
+    font-size: 16px;
+  }
 }
