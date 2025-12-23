@@ -9,4 +9,4 @@ author: null
 show_tile: false
 ---
 
-View 360 tour of the VR environment (Viewable in VR or Web)
+Full 3D environment and VR Splat Gallery coming soon. [View legacy 360 environment here](VRGalleryFinal.html)

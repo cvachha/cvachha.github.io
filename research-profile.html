@@ -598,6 +598,40 @@
                 </td>
             </tr>
            
+            <tr onmouseout="projects_stop()" onmouseover="projects_start()">
+              <td style="padding:20px;width:20%;vertical-align:top;padding-left:0;padding-top:25px">
+                <div class="one">
+                  <div class="two" id='projects_image'>
+                    <img src='../research_profile_files/background_surface_deskV2_8.png' width=100%>
+                  </div>
+                  <img src='../research_profile_files/background_surface_deskV2_8.png' width=100%>
+                </div>
+                <script type="text/javascript">
+                  function projects_start() {
+                    document.getElementById('projects_image').style.opacity = "1";
+                  }
+        
+                  function projects_stop() {
+                    document.getElementById('projects_image').style.opacity = "0";
+                  }
+                  projects_stop()
+                </script>
+              </td>
+              <td class="paper-text" style="padding:20px;width:80%;vertical-align:top">
+                
+                  <span class="papertitle"> Additional Projects
+
+                  </span>
+                                
+                <p></p>
+                <p>
+                    Various projects and explorations from over the years in VR/AR, 3D, and more.
+                </p>
+                <div class="paper-links">
+                  <a href="projects.html" target="_blank">read more</a>
+                </div>
+              </td>
+            </tr>
             
 						
             
@@ -606,6 +640,9 @@
             <tr>
               <td style="padding:0px">
                 <br>
+                <p style="text-align:right;font-size:small;">
+                  <a href="research.html" target="_blank">View Legacy Research Page</a>
+                </p>
                 <p style="text-align:right;font-size:small;">
                   Website adapted from Jon Barron's <a href="https://github.com/jonbarron/jonbarron_website" target="_blank">source code</a>
                 </p>
