@@ -18,7 +18,7 @@
       <img src="{{ tile.image }}" alt="{{ tile.title }}" />
     </span>
     <header class="major">
-      <h3><a href="{{ tile.url  | relative_url }}" class="link">{{ tile.title }}</a></h3>
+      <h3><a href="{% if tile.custom_url %}{{ tile.custom_url }}{% else %}{{ tile.url | relative_url }}{% endif %}" class="link">{{ tile.title }}</a></h3>
       <p>{{ tile.description }}</p>
     </header>
   </article>

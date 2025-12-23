@@ -5,6 +5,7 @@ description: 'Research projects and publications'
 image: assets/images/jacobsHall.jpg
 nav-menu: true
 menu-show: true
+custom_url: /research-profile.html
 ---
 
 <!-- Main -->

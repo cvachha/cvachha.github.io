@@ -21,7 +21,7 @@
 		{% endfor %}
 		{% for page in site.html_pages %}
 		    {% if page.layout != "home" and page.nav-menu == true %}
-		        <li><a href="{{ page.url | absolute_url }}">{{ page.title }}</a></li>
+		        <li><a href="{% if page.custom_url %}{{ page.custom_url }}{% else %}{{ page.url | absolute_url }}{% endif %}">{{ page.title }}</a></li>
 		    {% endif %}
 		{% endfor %}
 	</ul>
