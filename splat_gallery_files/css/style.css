@@ -1,0 +1,540 @@
+:root {
+    --bg-color: #121212;
+    --surface-color: #1e1e1e;
+    --primary-color: #00bfff; /* Deep Sky Blue */
+    --text-color: #e0e0e0;
+    --timeline-height: 160px;
+    --transition-speed: 0.3s;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow: hidden; /* Prevent body scroll */
+}
+
+#app {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100vw;
+}
+
+/* Viewer Area */
+#viewer-container {
+    position: relative;
+    flex: 1; /* Takes remaining space */
+    background: #000;
+    overflow: hidden;
+    transition: all var(--transition-speed) ease;
+}
+
+#canvas-wrapper {
+    width: 100%;
+    height: 100%;
+}
+
+canvas {
+    display: block;
+    outline: none;
+}
+
+/* UI Overlay */
+.ui-overlay {
+    position: absolute;
+    padding: 1rem;
+    pointer-events: none; /* Let clicks pass through to canvas */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    z-index: 10;
+    background: transparent;
+}
+
+.top-bar {
+    top: 0;
+    left: 0;
+    transition: transform 0.3s ease-in-out;
+}
+
+.top-bar.hidden {
+    transform: translateY(-100%);
+    display: flex !important; /* Override generic hidden */
+}
+
+.title {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 300;
+    letter-spacing: 2px;
+    pointer-events: auto;
+}
+
+.controls {
+    display: flex;
+    gap: 10px;
+    pointer-events: auto;
+}
+
+.icon-btn {
+    background: rgba(255,255,255,0.25);
+    border: 1px solid rgba(255,255,255,0.4);
+    color: #fff;
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(4px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+}
+
+.icon-btn:hover {
+    background: var(--primary-color);
+    color: #121212;
+    transform: scale(1.1);
+    box-shadow: 0 0 15px var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+/* Splat Info Overlay */
+.splat-info-overlay {
+    position: absolute;
+    bottom: 40px;
+    left: 40px;
+    max-width: 500px;
+    background: transparent;
+    padding: 0;
+    pointer-events: auto; /* Allow hover */
+    z-index: 15;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.9);
+    border-left: none;
+}
+
+.splat-info-overlay.hidden {
+    opacity: 0;
+    transform: translateY(20px);
+    pointer-events: none; /* Disable events when hidden */
+}
+
+.splat-info-overlay h2 {
+    margin: 0 0 10px 0;
+    font-size: 2rem; /* Smaller title */
+    font-weight: 200;
+    line-height: 1.1;
+    letter-spacing: -1px;
+    color: #fff;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+}
+
+.info-meta {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 15px;
+    font-weight: 300;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.info-desc {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin: 0; /* Reset margin for clean transition */
+    color: rgba(255, 255, 255, 0.9);
+    max-width: 600px;
+    
+    /* Hidden by default */
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.splat-info-overlay:hover .info-desc {
+    opacity: 1;
+    max-height: 300px;
+    margin-top: 15px;
+}
+
+.info-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 5px;
+}
+
+/* Timeline */
+#timeline-container {
+    height: var(--timeline-height);
+    background: var(--surface-color);
+    border-top: 1px solid #333;
+    overflow-x: auto;
+    overflow-y: hidden;
+    position: relative;
+    z-index: 20;
+    /* Custom scrollbar styling */
+    scrollbar-width: thin;
+    scrollbar-color: #444 #1e1e1e;
+    
+    /* Flex alignment for buttons */
+    display: flex;
+    align-items: center;
+}
+
+#timeline-container::-webkit-scrollbar {
+    height: 8px;
+}
+#timeline-container::-webkit-scrollbar-track {
+    background: #1e1e1e;
+}
+#timeline-container::-webkit-scrollbar-thumb {
+    background-color: #444;
+    border-radius: 4px;
+}
+
+.timeline-track {
+    display: flex;
+    padding: 20px;
+    gap: 20px;
+    min-width: min-content;
+    align-items: center;
+    
+    /* Ensure scrolling works */
+    overflow-x: auto;
+    flex: 1; /* Take up available space between buttons */
+    height: 100%;
+    scrollbar-width: none; /* Hide default scrollbar in track if desired, or keep */
+}
+
+/* Hide scrollbar on track specifically if using buttons mainly, but keep access */
+.timeline-track::-webkit-scrollbar {
+    height: 0; /* Hide scrollbar inside track */
+}
+
+/* Scroll Nav Buttons */
+.scroll-nav-btn {
+    background: rgba(0,0,0,0.5);
+    border: none;
+    color: white;
+    width: 40px;
+    height: 100%;
+    cursor: pointer;
+    z-index: 25;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+    position: sticky; /* Keeps them visible if container scrolls? No, container flexes */
+    flex-shrink: 0; /* Prevent shrinking */
+}
+
+.scroll-nav-btn:hover {
+    background: rgba(255,255,255,0.1);
+}
+
+.scroll-nav-btn.hidden {
+    display: none;
+}
+
+.timeline-item {
+    min-width: 200px;
+    height: 100px;
+    background: #2a2a2a;
+    border-radius: 8px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    border: 2px solid transparent;
+    transition: transform 0.2s, border-color 0.2s;
+    display: flex;
+    flex-direction: column;
+}
+
+.timeline-item:hover {
+    transform: translateY(-5px);
+    border-color: rgba(255,255,255,0.3);
+}
+
+.timeline-item.active {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 20px rgba(0, 191, 255, 0.4);
+}
+
+.timeline-thumb {
+    width: 100%;
+    height: 100%;
+    background-color: #333;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    transition: transform 0.3s ease;
+}
+
+.timeline-title-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 8px;
+    font-size: 0.8rem;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+    pointer-events: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    backdrop-filter: blur(2px);
+}
+
+.timeline-item:hover .timeline-title-overlay {
+    opacity: 1;
+}
+
+.timeline-item:hover .timeline-thumb {
+    transform: scale(1.05);
+}
+
+.timeline-info {
+    display: none;
+}
+
+/* Chips in timeline */
+.timeline-tags {
+    display: flex;
+    gap: 4px;
+    margin-top: 2px;
+}
+.tag-chip {
+    font-size: 0.6rem;
+    background: rgba(255,255,255,0.1);
+    padding: 1px 4px;
+    border-radius: 4px;
+}
+
+/* Grid View Overlay */
+#grid-view {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(18, 18, 18, 0.95);
+    backdrop-filter: blur(10px);
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    transition: opacity 0.3s;
+}
+
+#grid-view.hidden {
+    display: none !important;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.grid-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.filter-bar {
+    display: flex;
+    gap: 1rem;
+    flex: 1;
+    justify-content: center;
+}
+
+.filter-select {
+    background: #333;
+    color: #fff;
+    border: 1px solid #444;
+    padding: 8px 12px;
+    border-radius: 4px;
+    outline: none;
+    font-family: inherit;
+}
+
+.filter-select:focus {
+    border-color: var(--primary-color);
+}
+
+.grid-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    overflow-y: auto;
+    padding-bottom: 2rem;
+    flex: 1;
+    min-height: 0;
+    padding: 0 2rem 2rem 2rem;
+    scrollbar-gutter: stable; /* Prevent layout shift when scrollbar appears */
+}
+
+/* Custom scrollbar for grid content */
+.grid-content::-webkit-scrollbar {
+    width: 8px;
+}
+.grid-content::-webkit-scrollbar-track {
+    background: #1e1e1e;
+}
+.grid-content::-webkit-scrollbar-thumb {
+    background-color: #444;
+    border-radius: 4px;
+}
+
+.grid-item {
+    background: var(--surface-color);
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.2s;
+    display: flex;
+    flex-direction: column;
+}
+
+.grid-item:hover {
+    transform: scale(1.02);
+}
+
+.grid-thumb {
+    width: 100%;
+    height: 200px;
+    background-color: #333;
+    background-size: cover;
+    background-position: center;
+    flex-shrink: 0;
+    position: relative;
+}
+
+.thumb-title-overlay {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    left: 12px;
+    width: auto;
+    background: rgba(0, 0, 0, 0.75);
+    color: white;
+    padding: 6px 10px;
+    font-size: 0.75rem;
+    border-radius: 6px;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+    pointer-events: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.4);
+    z-index: 50;
+    backdrop-filter: blur(4px);
+    display: block;
+    text-align: center;
+}
+
+/* Trigger on hovering the whole item, not just the thumb */
+.grid-item:hover .thumb-title-overlay {
+    opacity: 1;
+}
+
+.grid-info {
+    padding: 1rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.grid-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    color: #aaa;
+    margin-bottom: 0.5rem;
+}
+
+.grid-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: auto;
+    padding-top: 1rem;
+}
+
+.tag-badge {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    font-size: 0.8rem;
+    padding: 4px 12px;
+    border-radius: 20px;
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255,255,255,0.2);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+/* Loader */
+.loader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--primary-color);
+    font-size: 1.2rem;
+    z-index: 5;
+    background: rgba(0,0,0,0.5);
+    padding: 10px 20px;
+    border-radius: 20px;
+}
+
+.loader.hidden {
+    display: none;
+}
+
+.hidden {
+    display: none !important;
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .timeline-item {
+        min-width: 150px;
+    }
+    .grid-header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .filter-bar {
+        flex-direction: column;
+    }
+    
+    .splat-info-overlay {
+        left: 10px;
+        right: 10px;
+        bottom: 10px;
+        max-width: none;
+    }
+    
+    .scroll-nav-btn {
+        width: 30px;
+    }
+}

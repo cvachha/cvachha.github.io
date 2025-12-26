@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Splat Gallery Viewer</title>
+    <link rel="stylesheet" href="splat_gallery_files/css/style.css">
+    <style>
+        /* Critical inline styles to prevent FOUC */
+        body { margin: 0; background-color: #111; color: #eee; font-family: sans-serif; overflow: hidden; }
+    </style>
+    <!-- Import Map -->
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://unpkg.com/three@0.169.0/build/three.module.js",
+          "three/addons/": "https://unpkg.com/three@0.169.0/examples/jsm/",
+          "@sparkjsdev/spark": "https://sparkjs.dev/releases/spark/0.1.10/spark.module.js"
+        }
+      }
+    </script>
+</head>
+<body>
+    <div id="app">
+        <!-- Main Viewer Area -->
+        <div id="viewer-container">
+            <div id="canvas-wrapper"></div>
+            
+            <!-- Overlay UI -->
+            <div class="ui-overlay top-bar">
+                <div class="controls">
+                    <button id="btn-home" class="icon-btn" title="Back to Home">
+                        <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+                    </button>
+                    <button id="btn-view-mode" class="icon-btn" title="Toggle View Mode (Object / Scene)">
+                        <!-- Eye Icon -->
+                        <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+                    </button>
+                    <button id="btn-grid" class="icon-btn" title="Grid View">
+                        <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M4 4h4v4H4zm6 0h4v4h-4zm6 0h4v4h-4zM4 10h4v4H4zm6 0h4v4h-4zm6 0h4v4h-4zM4 16h4v4H4zm6 0h4v4h-4zm6 0h4v4h-4z"/></svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Loading Indicator -->
+            <div id="loader" class="loader hidden">Loading...</div>
+
+            <!-- Current Splat Info Overlay -->
+            <div id="splat-info" class="splat-info-overlay hidden">
+                <h2 id="info-title">Title</h2>
+                <div class="info-meta">
+                    <span id="info-date">Date</span> • <span id="info-location">Location</span>
+                </div>
+                <div id="info-tags" class="info-tags">
+                    <!-- Tags injected here -->
+                </div>
+                <p id="info-desc" class="info-desc">Description</p>
+            </div>
+        </div>
+
+        <!-- Timeline / Navigation Bar -->
+        <div id="timeline-container">
+            <button id="btn-scroll-left" class="scroll-nav-btn hidden">
+                <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+            </button>
+            <div class="timeline-track" id="timeline-track">
+                <!-- Timeline items will be injected here -->
+            </div>
+            <button id="btn-scroll-right" class="scroll-nav-btn hidden">
+                <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+            </button>
+        </div>
+
+        <!-- Grid View Overlay -->
+        <div id="grid-view" class="hidden">
+            <div class="grid-header">
+                <h2>Splat Gallery</h2>
+                
+                <!-- Filter & Sort Controls -->
+                <div class="filter-bar">
+                    <select id="filter-category" class="filter-select">
+                        <option value="all">All Categories</option>
+                        <!-- Options populated via JS -->
+                    </select>
+                    
+                    <select id="sort-by" class="filter-select">
+                        <option value="id-asc">Default (ID)</option>
+                        <option value="date-desc">Date (Newest)</option>
+                        <option value="date-asc">Date (Oldest)</option>
+                        <option value="title">Title (A-Z)</option>
+                        <option value="location">Location</option>
+                    </select>
+                </div>
+
+                <button id="btn-close-grid" class="icon-btn">✕</button>
+            </div>
+            <div class="grid-content" id="grid-content">
+                <!-- Grid items will be injected here -->
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="splat_gallery_files/js/app.js"></script>
+</body>
+</html>
