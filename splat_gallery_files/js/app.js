@@ -5,6 +5,7 @@ class App {
     constructor() {
         this.renderer = new SplatRenderer('canvas-wrapper');
         this.renderer.onNextScene = () => this.loadNextItem();
+        this.renderer.onPrevScene = () => this.loadPrevItem();
         
         this.currentId = null;
         this.data = [...galleryData]; // Working copy for sorting/filtering
@@ -322,6 +323,17 @@ class App {
         
         const nextIndex = (currentIndex + 1) % this.data.length;
         this.loadItem(this.data[nextIndex].id);
+    }
+
+    loadPrevItem() {
+        if (!this.currentId || this.data.length === 0) return;
+        
+        const currentIndex = this.data.findIndex(item => item.id === this.currentId);
+        if (currentIndex === -1) return;
+        
+        // Handle wrap-around for previous item
+        const prevIndex = (currentIndex - 1 + this.data.length) % this.data.length;
+        this.loadItem(this.data[prevIndex].id);
     }
 
     // Helper to generate consistent colors from strings for placeholders

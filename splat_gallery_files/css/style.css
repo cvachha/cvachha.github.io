@@ -521,10 +521,40 @@ canvas {
     }
     .grid-header {
         flex-direction: column;
-        align-items: stretch;
+        align-items: flex-start;
+        margin-bottom: 1rem;
+        position: relative;
+        padding-right: 50px; /* Space for close button */
     }
+    
+    #btn-close-grid {
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+
     .filter-bar {
         flex-direction: column;
+        gap: 0.5rem;
+        width: 100%;
+    }
+    
+    .filter-select {
+        width: 100%;
+    }
+    
+    #grid-view {
+        padding: 1rem;
+    }
+
+    .grid-content {
+        padding: 0;
+        grid-template-columns: repeat(2, 1fr); /* 2 columns for mobile */
+        gap: 10px;
+    }
+    
+    .grid-thumb {
+        height: 150px; /* Adjusted height for 2-column layout */
     }
     
     .splat-info-overlay {

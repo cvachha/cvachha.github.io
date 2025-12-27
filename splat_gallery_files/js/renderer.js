@@ -42,6 +42,7 @@ export class SplatRenderer {
         
         // Callback for VR controller interaction
         this.onNextScene = null;
+        this.onPrevScene = null;
 
         // Movement State
         this.moveState = {
@@ -58,6 +59,14 @@ export class SplatRenderer {
         this.viewMode = 'object';
         this.setViewMode('object');
         
+        // Snap Turn State
+        this.snapTurnAvailable = true;
+
+        // Scaling State
+        this.isScaling = false;
+        this.initialScaleDist = 0;
+        this.initialSplatScale = new THREE.Vector3();
+
         // Lighting (Optional, splats usually are self-lit but good to have for other elements)
         const ambientLight = new THREE.AmbientLight(0xffffff, 1);
         this.scene.add(ambientLight);
@@ -104,19 +113,38 @@ export class SplatRenderer {
 
     setupXRControls() {
         // Setup controllers for VR input
-        const controller1 = this.renderer.xr.getController(0);
-        controller1.addEventListener('selectstart', (e) => this.onControllerSelect(e));
-        controller1.addEventListener('connected', (e) => {
-            e.target.userData.handedness = e.data.handedness;
-        });
-        this.scene.add(controller1);
+        this.controllers = [];
 
-        const controller2 = this.renderer.xr.getController(1);
-        controller2.addEventListener('selectstart', (e) => this.onControllerSelect(e));
-        controller2.addEventListener('connected', (e) => {
-            e.target.userData.handedness = e.data.handedness;
-        });
-        this.scene.add(controller2);
+        const setupController = (index) => {
+            const controller = this.renderer.xr.getController(index);
+            
+            // Initialize state
+            controller.userData.isSqueezing = false;
+            controller.userData.prevPosition = new THREE.Vector3();
+
+            controller.addEventListener('selectstart', (e) => this.onControllerSelect(e));
+            
+            controller.addEventListener('connected', (e) => {
+                controller.userData.handedness = e.data.handedness;
+            });
+
+            // Grip (Squeeze) Events for Movement
+            controller.addEventListener('squeezestart', () => {
+                controller.userData.isSqueezing = true;
+                controller.userData.prevPosition.copy(controller.position);
+            });
+
+            controller.addEventListener('squeezeend', () => {
+                controller.userData.isSqueezing = false;
+            });
+
+            this.scene.add(controller);
+            this.controllers.push(controller);
+            return controller;
+        };
+
+        setupController(0);
+        setupController(1);
     }
 
     onControllerSelect(event) {
@@ -125,6 +153,10 @@ export class SplatRenderer {
         if (controller.userData.handedness === 'right') {
             if (this.onNextScene) {
                 this.onNextScene();
+            }
+        } else if (controller.userData.handedness === 'left') {
+            if (this.onPrevScene) {
+                this.onPrevScene();
             }
         }
     }
@@ -191,8 +223,142 @@ export class SplatRenderer {
         });
     }
 
+    updateVRMovement() {
+        if (!this.controllers || !this.currentSplat) return;
+
+        const leftController = this.controllers.find(c => c.userData.handedness === 'left');
+        const rightController = this.controllers.find(c => c.userData.handedness === 'right');
+
+        // Check if both controllers are squeezing (Dual-Hand Interaction)
+        const isLeftSqueezing = leftController && leftController.userData.isSqueezing;
+        const isRightSqueezing = rightController && rightController.userData.isSqueezing;
+
+        if (isLeftSqueezing && isRightSqueezing) {
+            // Scaling Logic
+            const dist = leftController.position.distanceTo(rightController.position);
+
+            if (!this.isScaling) {
+                // Start Scaling
+                this.isScaling = true;
+                this.initialScaleDist = dist;
+                this.initialSplatScale.copy(this.currentSplat.scale);
+            } else {
+                // Update Scale
+                if (this.initialScaleDist > 0) {
+                    const ratio = dist / this.initialScaleDist;
+                    // Apply ratio to initial scale
+                    this.currentSplat.scale.copy(this.initialSplatScale).multiplyScalar(ratio);
+                }
+            }
+            
+            // While scaling, we probably want to disable single-hand drag to avoid erratic jumps,
+            // OR we can allow drag by using the midpoint of the two controllers.
+            // Let's implement midpoint drag + scale for natural "pinch and zoom" feel.
+            
+            const currentMidpoint = new THREE.Vector3().addVectors(leftController.position, rightController.position).multiplyScalar(0.5);
+            
+            if (!this.prevMidpoint) {
+                this.prevMidpoint = currentMidpoint.clone();
+            } else {
+                const delta = new THREE.Vector3().subVectors(currentMidpoint, this.prevMidpoint);
+                this.currentSplat.position.add(delta);
+                this.prevMidpoint.copy(currentMidpoint);
+            }
+            
+            // Reset individual drag states so they don't "jump" when one hand releases
+            if (leftController) leftController.userData.prevPosition.copy(leftController.position);
+            if (rightController) rightController.userData.prevPosition.copy(rightController.position);
+
+        } else {
+            // Stop Scaling
+            this.isScaling = false;
+            this.prevMidpoint = null;
+
+            // Single Hand Drag (Grip-based movement)
+            // Only if NOT scaling (mutually exclusive to keep it clean)
+            this.controllers.forEach(controller => {
+                if (controller.userData.isSqueezing) {
+                    const currentPos = controller.position;
+                    const prevPos = controller.userData.prevPosition;
+
+                    const delta = new THREE.Vector3().subVectors(currentPos, prevPos);
+                    this.currentSplat.position.add(delta);
+                    prevPos.copy(currentPos);
+                }
+            });
+        }
+
+        // Joystick-based movement (Left controller)
+        const session = this.renderer.xr.getSession();
+        if (session) {
+            for (const source of session.inputSources) {
+                // Left Joystick: Movement
+                if (source.handedness === 'left' && source.gamepad) {
+                    const axes = source.gamepad.axes;
+                    let x = axes[2] || 0;
+                    let y = axes[3] || 0;
+
+                    if (Math.abs(x) < 0.1) x = 0;
+                    if (Math.abs(y) < 0.1) y = 0;
+
+                    if (x !== 0 || y !== 0) {
+                        const speed = 0.05; 
+                        const direction = new THREE.Vector3();
+                        this.camera.getWorldDirection(direction);
+                        direction.y = 0;
+                        direction.normalize();
+
+                        const rightDir = new THREE.Vector3();
+                        rightDir.crossVectors(direction, this.camera.up).normalize();
+                        
+                        const v = new THREE.Vector3();
+                        v.addScaledVector(direction, y); 
+                        v.addScaledVector(rightDir, -x);
+
+                        v.multiplyScalar(speed);
+                        this.currentSplat.position.add(v);
+                    }
+                }
+
+                // Right Joystick: Snap Turn
+                if (source.handedness === 'right' && source.gamepad) {
+                    const axes = source.gamepad.axes;
+                    const x = axes[2] || 0;
+                    
+                    // Reset if stick is centered
+                    if (Math.abs(x) < 0.2) {
+                        this.snapTurnAvailable = true;
+                    } 
+                    // Snap Turn if pushed past threshold
+                    else if (Math.abs(x) > 0.8 && this.snapTurnAvailable) {
+                        this.snapTurnAvailable = false;
+                        
+                        // Rotate Splat around User (Camera)
+                        const angle = -Math.sign(x) * (Math.PI / 2); // 90 degrees left or right
+                        
+                        // Pivot is Camera position
+                        const pivot = this.camera.position.clone();
+                        
+                        // 1. Translate splat to local space relative to pivot
+                        this.currentSplat.position.sub(pivot);
+                        
+                        // 2. Rotate position
+                        this.currentSplat.position.applyAxisAngle(new THREE.Vector3(0, 1, 0), angle);
+                        
+                        // 3. Rotate orientation
+                        this.currentSplat.rotateOnWorldAxis(new THREE.Vector3(0, 1, 0), angle);
+                        
+                        // 4. Translate back
+                        this.currentSplat.position.add(pivot);
+                    }
+                }
+            }
+        }
+    }
+
     render(time) {
         this.updateMovement();
+        this.updateVRMovement();
         this.controls.update();
         
         // Optional: slight rotation for demo
