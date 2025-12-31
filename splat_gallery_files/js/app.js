@@ -276,7 +276,12 @@ class App {
 
         // Load Splat
         try {
-            await this.renderer.loadSplat(item.url, item.transform);
+            // Pass the entire item or construct a config object to include vr_url
+            const splatConfig = {
+                url: item.url,
+                vr_url: item.vr_url // Optional VR specific URL
+            };
+            await this.renderer.loadSplat(splatConfig, item.transform);
         } catch (e) {
             console.error(e);
             alert("Failed to load splat. Check console.");

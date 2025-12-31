@@ -9,6 +9,8 @@ export const galleryData = [
         categories: ['UC Berkeley', 'University', 'Outdoor'],
         description: 'UC Berkeley Platform',
         url: '../splat_gallery_files/splats/gs_Berkeley_Platform_4k_Sunn.splat',
+        // Optional optimized version for VR
+        // vr_url: '../splat_gallery_files/splats/gs_Berkeley_Platform_4k_Sunn_optimized.splat',
         thumbnail: '../splat_gallery_files/images/gs_Berkeley_Platform_4k_Sunn-image.png',
         transform: {
             position: [0, -0.1, 0],
@@ -73,6 +75,8 @@ export const galleryData = [
         categories: ['UC Berkeley', 'University', 'Outdoor'],
         description: 'Bench by the Campanile during the Golden Hour',
         url: '../splat_gallery_files/splats/gs_Campanile_Base_Right_Benc.splat',
+        vr_url: '../splat_gallery_files/splats/gs_Campanile_Base_Right_Bench_VR_400k.splat',
+
         thumbnail: '../splat_gallery_files/images/gs_Campanile_Base_Right_Benc-image.png',
         transform: {
             position: [0, -0.1, 0],
@@ -297,6 +301,8 @@ export const galleryData = [
         categories: ['UC Berkeley', 'University', 'Outdoor'],
         description: 'South Hall at UC Berkeley',
         url: '../splat_gallery_files/splats/gs_South_Hall_Full_Sunny_Sp.splat',
+        vr_url: '../splat_gallery_files/splats/gs_South_Hall_Full_Sunny_Sp_VR_400k.splat',
+
         thumbnail: '../splat_gallery_files/images/gs_South_Hall_Full_Sunny_Sp-image.png',
         transform: {
             position: [0, -0.1, 0],

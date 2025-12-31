@@ -21,7 +21,7 @@ export class SplatRenderer {
         this.scene.background = new THREE.Color(0x111111);
 
         // Camera Setup
-        this.camera = new THREE.PerspectiveCamera(60, this.container.clientWidth / this.container.clientHeight, 0.1, 100);
+        this.camera = new THREE.PerspectiveCamera(60, this.container.clientWidth / this.container.clientHeight, 0.1, 200);
         this.camera.position.set(0, 0.05, 0); // Level with origin, pulled back to see object
 
         // Renderer Setup
@@ -89,6 +89,26 @@ export class SplatRenderer {
         // Custom Resize Observer for container changes
         this.resizeObserver = new ResizeObserver(() => this.onWindowResize());
         this.resizeObserver.observe(this.container);
+
+        // XR Session Events
+        this.renderer.xr.addEventListener('sessionstart', () => this.onVRSessionStart());
+        this.renderer.xr.addEventListener('sessionend', () => this.onVRSessionEnd());
+    }
+
+    onVRSessionStart() {
+        if (this.splatConfig && this.splatConfig.vrUrl) {
+            console.log("VR Session Started: Switching to optimized splat");
+            // Preserve current transform if possible, otherwise use default
+            // For now using default transform from config to ensure stability
+            this.loadContent(this.splatConfig.vrUrl, this.splatConfig.transform);
+        }
+    }
+
+    onVRSessionEnd() {
+        if (this.splatConfig && this.splatConfig.url) {
+            console.log("VR Session Ended: Switching to standard splat");
+            this.loadContent(this.splatConfig.url, this.splatConfig.transform);
+        }
     }
 
     setupKeyboardControls() {
@@ -187,7 +207,30 @@ export class SplatRenderer {
         this.controls.update();
     }
 
-    async loadSplat(url, transform = {}) {
+    async loadSplat(urlOrConfig, transform = {}) {
+        // Handle both simple URL string and config object
+        let url = urlOrConfig;
+        let vrUrl = null;
+
+        if (typeof urlOrConfig === 'object' && urlOrConfig.url) {
+            url = urlOrConfig.url;
+            vrUrl = urlOrConfig.vr_url || null;
+        }
+
+        // Store config for VR switching
+        this.splatConfig = {
+            url: url,
+            vrUrl: vrUrl,
+            transform: transform
+        };
+
+        // Determine which URL to load
+        const targetUrl = (this.renderer.xr.isPresenting && vrUrl) ? vrUrl : url;
+        
+        return this.loadContent(targetUrl, transform);
+    }
+
+    async loadContent(url, transform) {
         if (this.currentSplat) {
             this.scene.remove(this.currentSplat);
             if (this.currentSplat.dispose) this.currentSplat.dispose();
