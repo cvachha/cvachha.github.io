@@ -9,4 +9,4 @@ author: null
 show_tile: false
 ---
 
-Full 3D environment and VR Splat Gallery coming soon. [View legacy 360 environment here](VRGalleryFinal.html)
+Full 3D environment and VR Splat Gallery coming soon. Splat Gallery in-progress [here](splat_gallery.html). View legacy 360 environment [here](VRGalleryFinal.html)
