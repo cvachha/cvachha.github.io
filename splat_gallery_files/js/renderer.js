@@ -141,21 +141,64 @@ export class SplatRenderer {
             // Initialize state
             controller.userData.isSqueezing = false;
             controller.userData.prevPosition = new THREE.Vector3();
+            controller.userData.isHand = false;
+            controller.userData.pinchStartPos = new THREE.Vector3();
+            controller.userData.pinchStartTime = 0;
 
-            controller.addEventListener('selectstart', (e) => this.onControllerSelect(e));
-            
             controller.addEventListener('connected', (e) => {
                 controller.userData.handedness = e.data.handedness;
+                controller.userData.isHand = !!e.data.hand;
             });
 
-            // Grip (Squeeze) Events for Movement
+            // Select Event (Trigger on Controller, Pinch on Hand)
+            controller.addEventListener('selectstart', (e) => {
+                if (controller.userData.isHand) {
+                    // Hand Pinch -> Treat as "Grip" for movement/scaling
+                    controller.userData.isSqueezing = true;
+                    controller.userData.prevPosition.copy(controller.position);
+                    
+                    // Track for Click/Tap detection (for Navigation)
+                    controller.userData.pinchStartPos.copy(controller.position);
+                    controller.userData.pinchStartTime = Date.now();
+                } else {
+                    // Controller Trigger -> Navigation
+                    this.onControllerSelect(e);
+                }
+            });
+
+            controller.addEventListener('selectend', () => {
+                if (controller.userData.isHand) {
+                    controller.userData.isSqueezing = false;
+
+                    // Detect Pinch-and-Release (Click) for Navigation
+                    // Threshold: Short duration (<500ms) and minimal movement (<5cm)
+                    const duration = Date.now() - controller.userData.pinchStartTime;
+                    const dist = controller.position.distanceTo(controller.userData.pinchStartPos);
+
+                    if (duration < 500 && dist < 0.05) {
+                        // User Request: Left -> Next, Right -> Back
+                        if (controller.userData.handedness === 'left') {
+                            if (this.onNextScene) this.onNextScene();
+                        } else if (controller.userData.handedness === 'right') {
+                            if (this.onPrevScene) this.onPrevScene();
+                        }
+                    }
+                }
+            });
+
+            // Grip (Squeeze) Events (Grip button on Controller)
             controller.addEventListener('squeezestart', () => {
-                controller.userData.isSqueezing = true;
-                controller.userData.prevPosition.copy(controller.position);
+                // Only for controllers (hands use pinch/select)
+                if (!controller.userData.isHand) {
+                    controller.userData.isSqueezing = true;
+                    controller.userData.prevPosition.copy(controller.position);
+                }
             });
 
             controller.addEventListener('squeezeend', () => {
-                controller.userData.isSqueezing = false;
+                if (!controller.userData.isHand) {
+                    controller.userData.isSqueezing = false;
+                }
             });
 
             this.scene.add(controller);
