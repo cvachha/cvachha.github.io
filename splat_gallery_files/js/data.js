@@ -13,9 +13,9 @@ export const galleryData = [
         // vr_url: '../splat_gallery_files/splats/gs_Berkeley_Platform_4k_Sunn_optimized.splat',
         thumbnail: '../splat_gallery_files/images/gs_Berkeley_Platform_4k_Sunn-image.png',
         transform: {
-            position: [0, -0.1, 0],
+            position: [0, -0.5, 0],
             rotation: [0, 3.14159, 3.14159],
-            scale: [1, 1, 1]
+            scale: [8.7, 8.7, 8.7]
         }
     },
     {

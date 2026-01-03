@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { VRButton } from 'three/addons/webxr/VRButton.js';
+import { XRHandModelFactory } from 'three/addons/webxr/XRHandModelFactory.js';
 import { SplatMesh } from '@sparkjsdev/spark';
 
 export class SplatRenderer {
@@ -21,7 +22,7 @@ export class SplatRenderer {
         this.scene.background = new THREE.Color(0x111111);
 
         // Camera Setup
-        this.camera = new THREE.PerspectiveCamera(60, this.container.clientWidth / this.container.clientHeight, 0.1, 200);
+        this.camera = new THREE.PerspectiveCamera(60, this.container.clientWidth / this.container.clientHeight, 0.1, 1000);
         this.camera.position.set(0, 0.05, 0); // Level with origin, pulled back to see object
 
         // Renderer Setup
@@ -134,6 +135,9 @@ export class SplatRenderer {
     setupXRControls() {
         // Setup controllers for VR input
         this.controllers = [];
+        
+        // Hand Model Factory for visual feedback
+        const handModelFactory = new XRHandModelFactory();
 
         const setupController = (index) => {
             const controller = this.renderer.xr.getController(index);
@@ -145,14 +149,35 @@ export class SplatRenderer {
             controller.userData.pinchStartPos = new THREE.Vector3();
             controller.userData.pinchStartTime = 0;
 
+            // Setup Hand Model (Visual Feedback)
+            // We get the hand object corresponding to this controller index
+            const hand = this.renderer.xr.getHand(index);
+            hand.add(handModelFactory.createHandModel(hand));
+            this.scene.add(hand);
+
             controller.addEventListener('connected', (e) => {
+                console.log(`Controller ${index} connected. Handedness: ${e.data.handedness}, IsHand: ${!!e.data.hand}`);
                 controller.userData.handedness = e.data.handedness;
                 controller.userData.isHand = !!e.data.hand;
             });
 
+            controller.addEventListener('disconnected', () => {
+                console.log(`Controller ${index} disconnected`);
+                controller.userData.isHand = false;
+                controller.userData.isSqueezing = false;
+            });
+
             // Select Event (Trigger on Controller, Pinch on Hand)
             controller.addEventListener('selectstart', (e) => {
+                // Ensure state is up to date (sometimes connected fires before we are ready or we missed it?)
+                // e.data is the XRInputSource
+                if (e.data) {
+                    controller.userData.isHand = !!e.data.hand;
+                    controller.userData.handedness = e.data.handedness;
+                }
+
                 if (controller.userData.isHand) {
+                    console.log(`Hand Pinch Start: ${controller.userData.handedness}`);
                     // Hand Pinch -> Treat as "Grip" for movement/scaling
                     controller.userData.isSqueezing = true;
                     controller.userData.prevPosition.copy(controller.position);
@@ -166,8 +191,9 @@ export class SplatRenderer {
                 }
             });
 
-            controller.addEventListener('selectend', () => {
+            controller.addEventListener('selectend', (e) => {
                 if (controller.userData.isHand) {
+                    console.log(`Hand Pinch End: ${controller.userData.handedness}`);
                     controller.userData.isSqueezing = false;
 
                     // Detect Pinch-and-Release (Click) for Navigation
@@ -176,6 +202,7 @@ export class SplatRenderer {
                     const dist = controller.position.distanceTo(controller.userData.pinchStartPos);
 
                     if (duration < 500 && dist < 0.05) {
+                        console.log("Hand Tap Detected - Navigating");
                         // User Request: Left -> Next, Right -> Back
                         if (controller.userData.handedness === 'left') {
                             if (this.onNextScene) this.onNextScene();
