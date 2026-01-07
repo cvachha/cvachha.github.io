@@ -9,13 +9,32 @@ export const galleryData = [
         categories: ['UC Berkeley', 'University', 'Outdoor'],
         description: 'UC Berkeley Platform',
         url: '../splat_gallery_files/splats/gs_Berkeley_Platform_4k_Sunn.splat',
+        variants: [
+            {
+                url: '../splat_gallery_files/splats/gs_Berkeley_Platform_4k_Sunn.splat',
+                title: 'Sunny'
+            },
+            {
+                url: '../splat_gallery_files/splats/gs_Platform_Backhalf_Sunset.splat',
+                title: 'Sunset'
+            },
+            {
+                url: '../splat_gallery_files/splats/gs_Berkeley_Platform_Sunset.splat',
+                title: 'Sundown - 3/21/24'
+            },
+            {
+                url: '../splat_gallery_files/splats/gs_Platform_Night_Fog_Sp24.splat',
+                title: 'Night'
+            }
+        ],
         // Optional optimized version for VR
         // vr_url: '../splat_gallery_files/splats/gs_Berkeley_Platform_4k_Sunn_optimized.splat',
         thumbnail: '../splat_gallery_files/images/gs_Berkeley_Platform_4k_Sunn-image.png',
         transform: {
-            position: [0, -0.5, 0],
+            position: [0, -1.0, 0],
             rotation: [0, 3.14159, 3.14159],
-            scale: [8.7, 8.7, 8.7]
+            vr_position: [0, -1.0, 0],
+            scale: [20,20,20]
         }
     },
     {
@@ -26,12 +45,12 @@ export const galleryData = [
         location: 'Princeton University, Princeton, NJ, USA',
         categories: ['University', 'Princeton', 'Outdoor'],
         description: 'Walkway in between the Princeton Chapel and the Firestone Library',
-        url: '../splat_gallery_files/splats/gs_Chapel_Firestone_Walkway.splat',
+        url: '../splat_gallery_files/splats/firestone_chapel_walkway_90k_splat.splat',
         thumbnail: '../splat_gallery_files/images/gs_Chapel_Firestone_Walkway-image.png',
         transform: {
-            position: [0, -0.1, 0],
+            position: [0, -1.7, 0],
             rotation: [0, -3.14159/2, 3.14159],
-            scale: [0.9, 0.9, 0.9]
+            scale: [6, 6, 6]
         }
     },
     {
@@ -42,7 +61,7 @@ export const galleryData = [
         location: 'UC Berkeley, Berkeley, CA, USA',
         categories: ['UC Berkeley', 'University', 'Outdoor'],
         description: 'Upper entrance of the Haas School of Business',
-        url: '../splat_gallery_files/splats/gs_Haas_Upper_Entrance_Sunset.splat',
+        url: '../splat_gallery_files/splats/haas_upperEntrance_bilatgrid_splat.splat',
         thumbnail: '../splat_gallery_files/images/gs_Haas_Upper_Entrance_Sunset-image.png',
         transform: {
             position: [0, -0.1, 0],
@@ -124,7 +143,7 @@ export const galleryData = [
         location: 'UC Berkeley, Berkeley, CA, USA',
         categories: ['UC Berkeley', 'University', 'Outdoor'],
         description: 'Goldman School Courtyard',
-        url: '../splat_gallery_files/splats/gs_Goldman_School_Courtyard.splat',
+        url: '../splat_gallery_files/splats/goldman_school_courtyard_bilatgrid_splat.splat',
         thumbnail: '../splat_gallery_files/images/gs_Goldman_School_Courtyard-image.png',
         transform: {
             position: [0, -0.1, 0],

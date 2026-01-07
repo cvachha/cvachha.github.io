@@ -22,7 +22,7 @@ export class SplatRenderer {
         this.scene.background = new THREE.Color(0x111111);
 
         // Camera Setup
-        this.camera = new THREE.PerspectiveCamera(60, this.container.clientWidth / this.container.clientHeight, 0.1, 1000);
+        this.camera = new THREE.PerspectiveCamera(60, this.container.clientWidth / this.container.clientHeight, 0.1, 3000);
         this.camera.position.set(0, 0.05, 0); // Level with origin, pulled back to see object
 
         // Renderer Setup
@@ -97,18 +97,36 @@ export class SplatRenderer {
     }
 
     onVRSessionStart() {
-        if (this.splatConfig && this.splatConfig.vrUrl) {
+        if (!this.splatConfig) return;
+
+        const transform = this.splatConfig.transform || {};
+        const vrPosition = transform.vr_position;
+
+        if (this.splatConfig.vrUrl) {
             console.log("VR Session Started: Switching to optimized splat");
-            // Preserve current transform if possible, otherwise use default
-            // For now using default transform from config to ensure stability
-            this.loadContent(this.splatConfig.vrUrl, this.splatConfig.transform);
+            
+            let useTransform = transform;
+            if (vrPosition) {
+                useTransform = { ...transform, position: vrPosition };
+            }
+
+            this.loadContent(this.splatConfig.vrUrl, useTransform);
+        } else if (vrPosition && this.currentSplat) {
+            console.log("VR Session Started: Applying VR position");
+            this.currentSplat.position.set(vrPosition[0], vrPosition[1], vrPosition[2]);
         }
     }
 
     onVRSessionEnd() {
-        if (this.splatConfig && this.splatConfig.url) {
+        if (!this.splatConfig) return;
+
+        if (this.splatConfig.vrUrl && this.splatConfig.url) {
             console.log("VR Session Ended: Switching to standard splat");
             this.loadContent(this.splatConfig.url, this.splatConfig.transform);
+        } else if (this.currentSplat && this.splatConfig.transform) {
+            // Revert position
+            const pos = this.splatConfig.transform.position || [0, 0, 0];
+            this.currentSplat.position.set(pos[0], pos[1], pos[2]);
         }
     }
 
@@ -294,10 +312,16 @@ export class SplatRenderer {
             transform: transform
         };
 
-        // Determine which URL to load
-        const targetUrl = (this.renderer.xr.isPresenting && vrUrl) ? vrUrl : url;
+        // Determine which URL and Transform to use
+        const isVR = this.renderer.xr.isPresenting;
+        const targetUrl = (isVR && vrUrl) ? vrUrl : url;
         
-        return this.loadContent(targetUrl, transform);
+        let useTransform = transform;
+        if (isVR && transform.vr_position) {
+            useTransform = { ...transform, position: transform.vr_position };
+        }
+
+        return this.loadContent(targetUrl, useTransform);
     }
 
     async loadContent(url, transform) {

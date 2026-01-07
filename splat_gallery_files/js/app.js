@@ -40,6 +40,13 @@ class App {
         this.infoTags = document.getElementById('info-tags');
         this.infoDesc = document.getElementById('info-desc');
 
+        // Variant Controls
+        this.variantControls = document.getElementById('variant-controls');
+        this.variantSlider = document.getElementById('variant-slider');
+        this.variantLabel = document.getElementById('variant-label');
+        this.variantTicks = document.getElementById('variant-ticks');
+        this.currentVariants = [];
+
         this.init();
     }
 
@@ -126,6 +133,43 @@ class App {
             
             // We also need to check after rendering the timeline
             this.onTimelineRendered = checkScroll; 
+        }
+
+        // Variant Slider
+        if (this.variantSlider) {
+            this.variantSlider.addEventListener('input', (e) => {
+                const index = parseInt(e.target.value);
+                this.updateVariant(index);
+            });
+        }
+    }
+
+    updateVariant(index) {
+        if (!this.currentVariants || !this.currentVariants[index]) return;
+        
+        const variant = this.currentVariants[index];
+        this.variantLabel.textContent = variant.title || `Variant ${index + 1}`;
+        
+        // Load the variant splat
+        // We reuse the current transform as the user likely hasn't moved the splat location?
+        // Actually, we should check if the variant has its own transform (unlikely for time of day)
+        // or just use the base item transform.
+        const item = galleryData.find(d => d.id === this.currentId);
+        if (item) {
+            // Show loader briefly if needed, though spark is fast
+            // this.loader.classList.remove('hidden'); 
+            
+            const splatConfig = {
+                url: variant.url,
+                vr_url: variant.vr_url
+            };
+            
+            // Allow variant to override transform if needed
+            const transform = variant.transform || item.transform;
+
+            this.renderer.loadSplat(splatConfig, transform).then(() => {
+               // this.loader.classList.add('hidden');
+            });
         }
     }
 
@@ -269,6 +313,9 @@ class App {
         // Update Info Overlay
         this.updateInfoOverlay(item);
 
+        // Handle Variants
+        this.setupVariants(item);
+
         // Set View Mode (Scene vs Object)
         const mode = item.viewMode || 'object';
         this.renderer.setViewMode(mode);
@@ -309,6 +356,37 @@ class App {
 
         // Show overlay
         this.infoOverlay.classList.remove('hidden');
+    }
+
+    setupVariants(item) {
+        if (item.variants && item.variants.length > 1) {
+            this.currentVariants = item.variants;
+            
+            // Show controls
+            this.variantControls.classList.remove('hidden');
+            
+            // Configure Slider
+            this.variantSlider.min = 0;
+            this.variantSlider.max = this.currentVariants.length - 1;
+            this.variantSlider.value = 0; // Default to first variant
+            
+            // Update Label
+            const initialVariant = this.currentVariants[0];
+            this.variantLabel.textContent = initialVariant.title || "Default";
+
+            // Generate Ticks
+            this.variantTicks.innerHTML = '';
+            // If too many variants, maybe skip ticks? For now assume < 10
+            for(let i=0; i<this.currentVariants.length; i++) {
+                const tick = document.createElement('div');
+                tick.className = 'variant-tick';
+                this.variantTicks.appendChild(tick);
+            }
+
+        } else {
+            this.currentVariants = [];
+            this.variantControls.classList.add('hidden');
+        }
     }
 
     updateViewModeUI(mode) {
