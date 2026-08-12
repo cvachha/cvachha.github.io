@@ -254,12 +254,54 @@
               <td style="padding:16px;width:100%;vertical-align:middle;padding-top:10px;padding-left:0;">
                 <h2>Research</h2>
                 <p>
-                  I'm interested in Virtual Reality/Augmented Reality, human computer interaction, computer graphics, and computer vision. Most of my work is at the intersections of graphics and HCI including creativity tools. More recently, I've been working on interfaces and systems combining radiance fields and generative models for world building or learning and perceiving a real-world space through 3D scene understanding for personalized situated world modeling.
+                  I'm interested in Virtual Reality/Augmented Reality, human computer interaction, computer graphics, and computer vision. Most of my work is at the intersections of graphics and HCI including creativity tools. More recently, I've been working on interfaces and systems combining radiance fields and generative models for world building or learning a real-world space through 3D scene understanding for personalized situated world modeling.
                 </p>
               </td>
             </tr>
           </tbody></table>
           <table style="width:100%;border:0px;border-spacing:0px 10px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+
+    <tr onmouseout="splatxr_stop()" onmouseover="splatxr_start()">
+      <td style="padding:20px;width:20%;vertical-align:top;padding-left:0;padding-top:25px">
+        <div class="one">
+          <div class="two" id='splatxr_image'>
+					  <img src='../research_profile_files/splatxr_desk_thumbnail.png' width=100%>
+					</div>
+          <img src='../research_profile_files/splatxr_desk_thumbnail.png' width=100%>
+        </div>
+        <script type="text/javascript">
+          function splatxr_start() {
+            document.getElementById('splatxr_image').style.opacity = "1";
+          }
+
+          function splatxr_stop() {
+            document.getElementById('splatxr_image').style.opacity = "0";
+          }
+          splatxr_stop()
+        </script>
+      </td>
+      <td class="paper-text" style="padding:20px;width:80%;vertical-align:top">
+        <span class="papertitle">SplatXR: A Toolkit for Multi-Layered Extended Reality via On-Headset 3D Gaussian Splatting
+        </span>
+        <br>
+        <strong>Cyrus Vachha</strong>,
+        <a href="https://mkari.de/" target="_blank">Mohamed Kari</a>,
+        <a href="https://parastooabtahi.com/" target="_blank">Parastoo Abtahi</a>
+        <br>
+        <em>UIST, 2026 (Paper)</em>
+        <br>
+        <div class="paper-links">
+        paper coming soon
+        /
+        site coming soon
+        </div>
+
+        <p></p>
+        <p>
+          We present a Unity toolkit for authoring multi-layered XR experiences with 3D Gaussian Splatting It provides building blocks for a renderer for standalone AR/VR devices, splat-to-mesh reconstruction, splat physics, splat blending, and offloaded on-headset splat object reconstruction. We validate it through demonstrative applications and a small developer study.
+        </p>
+      </td>
+    </tr>
 
     <tr onmouseout="dreamcrafter_stop()" onmouseover="dreamcrafter_start()">
       <td style="padding:20px;width:20%;vertical-align:top;padding-left:0;padding-top:25px">
@@ -506,44 +548,6 @@
           </tbody></table>
           <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
             
-
-            <!--
-            <tr onmouseout="splatxr_stop()" onmouseover="splatxr_start()">
-              <td style="padding:20px;width:20%;vertical-align:top;padding-left:0;padding-top:25px">
-                <div class="one">
-                  <div class="two" id='splatxr_image'>
-                    <img src='../research_profile_files/splatxr_desk_thumbnail.png' width=100%>
-                  </div>
-                  <img src='../research_profile_files/splatxr_desk_thumbnail.png' width=100%>
-                </div>
-                <script type="text/javascript">
-                  function splatxr_start() {
-                    document.getElementById('splatxr_image').style.opacity = "1";
-                  }
-        
-                  function splatxr_stop() {
-                    document.getElementById('splatxr_image').style.opacity = "0";
-                  }
-                  splatxr_stop()
-                </script>
-              </td>
-              <td class="paper-text" style="padding:20px;width:80%;vertical-align:top">
-                
-                  <span class="papertitle">SplatXR: Unity toolkit for 3D Gaussian Splatting XR Applications
-
-                  </span>
-                
-                  <br>
-                  <em>[In progress, expected release early 2026. Contact for earlier access.] </em>
-                  <br>
-                
-                <p></p>
-                <p>
-                  Unity toolkit for on-device 3D Gaussian Splatting rendering and interactions design for AR and VR applications compatible with standalone devices including Meta Quest 3 and Apple Vision Pro. We introduce mesh-augmented splats to enable physics and lighting interactions with splats by auto-generating a mesh from the input splat.
-
-                </td>
-            </tr>
-            -->
 
             <tr>
               <td style="padding:20px;width:20%;vertical-align:top;padding-left:0;padding-top:25px">
