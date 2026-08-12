@@ -99,6 +99,7 @@
                     camera.position.z = 3; 
 
                     const splatUrls = [
+                      '../research_profile_files/splats/splat_cyrus_siggraph_2026_cleaned.splat',
                       '../research_profile_files/splats/gs_Self_Nerf_VR_Berkeley_SDH_cropped.splat',
                       '../research_profile_files/splats/self_nerf_profile_1.splat', 
                       //'../research_profile_files/splats/gs_Self_Nerf_12_20_25_collarshirt_crop.splat', 
@@ -111,6 +112,30 @@
                     ];
                     let currentSplatIndex = 0;
                     let currentSplatMesh = null;
+                    let isTransitioning = false;
+
+                    function wait(ms) {
+                      return new Promise((resolve) => setTimeout(resolve, ms));
+                    }
+
+                    async function revealSplat() {
+                      container.classList.remove('splat-hide', 'splat-reveal');
+                      void container.offsetWidth;
+                      container.classList.add('splat-reveal');
+                      await wait(600);
+                      container.classList.remove('splat-reveal');
+                    }
+
+                    async function swapSplat(index) {
+                      container.classList.remove('splat-reveal');
+                      container.classList.add('splat-hide');
+                      await wait(280);
+                      await loadSplatAtIndex(index);
+                      container.classList.remove('splat-hide');
+                      container.classList.add('splat-reveal');
+                      await wait(600);
+                      container.classList.remove('splat-reveal');
+                    }
 
                     async function loadSplatAtIndex(index) {
                       if (currentSplatMesh) {
@@ -121,12 +146,20 @@
                       }
 
                       const url = splatUrls[index % splatUrls.length];
+                      camera.fov = (index % splatUrls.length) === 0 ? 40 : 50;
+                      camera.updateProjectionMatrix();
                       
                       try {
                         const splat = new SplatMesh({ url: url });
                         // Adjustments (apply to all or customize per index)
                         splat.quaternion.set(0, 0, 1, 0);
-                        splat.position.set(0, 0, 0);
+                        if ((index % splatUrls.length) === 0) {
+                          splat.scale.set(0.85, 0.85, 0.85);
+                          splat.position.set(0, 0, -0.4);
+                        } else {
+                          splat.scale.set(1, 1, 1);
+                          splat.position.set(0, 0, 0);
+                        }
                         
                         scene.add(splat);
                         currentSplatMesh = splat;
@@ -137,6 +170,7 @@
                     
                     // Initial load
                     await loadSplatAtIndex(currentSplatIndex);
+                    revealSplat();
 
                     function resetToImage() {
                       if (!currentSplatMesh) return; // Already reset
@@ -148,16 +182,20 @@
                       container.innerHTML = ''; // Cleanup renderer
                       currentSplatMesh = null;
                       currentSplatIndex = 0;
+                      isTransitioning = false;
                     }
 
                     // Click handler to cycle
-                    container.addEventListener('click', () => {
-                       currentSplatIndex++;
-                       if (currentSplatIndex >= splatUrls.length) {
+                    container.addEventListener('click', async () => {
+                       if (isTransitioning) return;
+                       if (currentSplatIndex + 1 >= splatUrls.length) {
                            resetToImage();
                            return;
                        }
-                       loadSplatAtIndex(currentSplatIndex);
+                       isTransitioning = true;
+                       currentSplatIndex++;
+                       await swapSplat(currentSplatIndex);
+                       isTransitioning = false;
                     });
 
                     let isHovering = false;

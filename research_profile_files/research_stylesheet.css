@@ -244,6 +244,52 @@ span.highlight {
   width: 100%;
 }
 
+#splat-container {
+  overflow: hidden;
+  -webkit-mask-image:
+    linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%),
+    linear-gradient(to bottom, transparent 0%, black 6%, black 94%, transparent 100%);
+  -webkit-mask-composite: destination-in;
+  mask-image:
+    linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%),
+    linear-gradient(to bottom, transparent 0%, black 6%, black 94%, transparent 100%);
+  mask-composite: intersect;
+}
+
+#splat-container.splat-hide canvas {
+  animation: splat-volumetric-hide 0.28s ease-in forwards;
+}
+
+#splat-container.splat-reveal canvas {
+  animation: splat-volumetric-reveal 0.6s ease-out;
+}
+
+@keyframes splat-volumetric-hide {
+  0% {
+    opacity: 1;
+    clip-path: inset(0 0 0 0);
+    filter: blur(0);
+  }
+  100% {
+    opacity: 0;
+    clip-path: inset(46% 0 46% 0);
+    filter: blur(5px);
+  }
+}
+
+@keyframes splat-volumetric-reveal {
+  0% {
+    opacity: 0;
+    clip-path: inset(46% 0 46% 0);
+    filter: blur(5px);
+  }
+  100% {
+    opacity: 1;
+    clip-path: inset(0 0 0 0);
+    filter: blur(0);
+  }
+}
+
 .profile-container img {
   border-radius: 0; 
   display: block;
