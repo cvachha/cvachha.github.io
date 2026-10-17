@@ -237,7 +237,12 @@ a.pub-title:hover {
   line-height: 1.55;
 }
 
-.pub-authors a { color: var(--muted); }
+.pub-authors a {
+  color: var(--text-color);
+  text-decoration: underline;
+  text-decoration-color: var(--border);
+  text-underline-offset: 3px;
+}
 .pub-authors a:hover { color: var(--link-hover-color); }
 
 .pub-authors strong {
@@ -425,6 +430,7 @@ a.pub-title:hover {
   transition: opacity 0.3s ease;
   text-align: center;
   width: 100%;
+  cursor: pointer;
 }
 
 .profile-container:hover .click-splat-msg {

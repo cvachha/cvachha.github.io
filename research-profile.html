@@ -48,9 +48,9 @@
       <section class="intro">
         <div class="intro-photo">
           <div class="profile-container" id="profile-wrapper">
-            <div id="splat-container" style="display: none; width: 100%; aspect-ratio: 1/1; position: relative;"></div>
+            <div id="splat-container" style="display: none; width: 100%; aspect-ratio: 1/1; position: relative; touch-action: none;"></div>
             <img id="profile-photo" style="object-fit: cover; cursor: pointer; display: block; width: 100%; aspect-ratio: 1/1; border-radius: 12px;" alt="profile photo" src="../research_profile_files/self_profile_institute-2_square.jpg" class="hoverZoomLink" onclick="loadSplat()" onmouseover="this.src='../research_profile_files/profile_vr_campanile_v2.jpg'" onmouseout="this.src='../research_profile_files/self_profile_institute-2_square.jpg'">
-            <div class="click-splat-msg" id="splat-msg">click to view gsplats</div>
+            <div class="click-splat-msg" id="splat-msg" onclick="loadSplat()">click to view gsplats</div>
           </div>
           <script type="importmap">
             {
@@ -208,12 +208,14 @@
                   }
               }
 
-              container.addEventListener('mouseenter', () => { 
+              container.addEventListener('pointerenter', (event) => {
+                  if (event.pointerType !== 'mouse') return; // ignore emulated mouse events from taps
                   isHovering = true;
                   clearResetTimer(); // Cancel reset if we re-enter
               });
               
-              container.addEventListener('mouseleave', () => { 
+              container.addEventListener('pointerleave', (event) => {
+                  if (event.pointerType !== 'mouse') return;
                   isHovering = false; 
                   // Start 30 second timer to reset
                   clearResetTimer();
@@ -236,11 +238,37 @@
                   }
               });
               
-              container.addEventListener('mousemove', (event) => {
+              container.addEventListener('pointermove', (event) => {
+                  if (event.pointerType !== 'mouse') return;
                   const rect = container.getBoundingClientRect();
                   // Normalize mouse position from -1 to 1
                   mouseX = ((event.clientX - rect.left) / rect.width) * 2 - 1;
                   mouseY = ((event.clientY - rect.top) / rect.height) * 2 - 1;
+              });
+
+              // Touch: drag finger across the splat to orbit (no cursor on mobile)
+              function updateTouch(event) {
+                  const touch = event.touches[0];
+                  if (!touch) return;
+                  const rect = container.getBoundingClientRect();
+                  mouseX = Math.max(-1, Math.min(1, ((touch.clientX - rect.left) / rect.width) * 2 - 1));
+                  mouseY = Math.max(-1, Math.min(1, ((touch.clientY - rect.top) / rect.height) * 2 - 1));
+              }
+
+              container.addEventListener('touchstart', (event) => {
+                  isHovering = true;
+                  clearResetTimer();
+                  updateTouch(event);
+              }, { passive: true });
+
+              container.addEventListener('touchmove', updateTouch, { passive: true });
+
+              container.addEventListener('touchend', () => {
+                  isHovering = false;
+                  clearResetTimer();
+                  resetTimer = setTimeout(() => {
+                      resetToImage();
+                  }, 30000);
               });
 
               renderer.setAnimationLoop(function animate(time) {
